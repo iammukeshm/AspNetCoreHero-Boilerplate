@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace AspNetCoreHero.Domain.Common
+{
+    public abstract class NonAuditableEntity
+    {
+        public virtual int Id { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+}
