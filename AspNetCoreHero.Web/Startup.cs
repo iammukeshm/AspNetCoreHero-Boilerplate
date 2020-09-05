@@ -1,3 +1,4 @@
+using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using AspNetCoreHero.Infrastructure.Shared.Extensions;
 using AspNetCoreHero.Web.Data;
 using Microsoft.AspNetCore.Builder;
@@ -26,16 +27,14 @@ namespace AspNetCoreHero.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructureShared(_configuration);
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    _configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddRouting(o => o.LowercaseUrls = true);
+            services.AddSharedInfrastructure(_configuration);
+            services.AddPersistenceInfrastructureForWeb(_configuration);
+            services.AddAuthenticationSchemeForWeb(_configuration);
+            services.AddHttpContextAccessor();
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.UseSerilogLogging();
@@ -47,7 +46,6 @@ namespace AspNetCoreHero.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -61,6 +59,9 @@ namespace AspNetCoreHero.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller}/{action=Index}/{id?}");
             });
         }
     }

@@ -60,7 +60,7 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
                 });
             });
         }
-        public static void AddInfrastructureShared(this IServiceCollection services, IConfiguration _config)
+        public static void AddSharedInfrastructure(this IServiceCollection services, IConfiguration _config)
         {
             services.Configure<MailConfiguration>(_config.GetSection("MailConfiguration"));
             services.AddTransient<IDateTimeService, DateTimeService>();

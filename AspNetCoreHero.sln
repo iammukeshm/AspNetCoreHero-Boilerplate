@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Infrastructu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1CC56DA0-5B2D-44A1-9BC1-C7F817C510BD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Infrastructure.Persistence", "AspNetCoreHero.Infrastructure.Persistence\AspNetCoreHero.Infrastructure.Persistence.csproj", "{589A7958-C39E-49D3-9152-268F98120D5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589A7958-C39E-49D3-9152-268F98120D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589A7958-C39E-49D3-9152-268F98120D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589A7958-C39E-49D3-9152-268F98120D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589A7958-C39E-49D3-9152-268F98120D5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{4F68612B-FAEF-48E1-826A-3EC63FB7709B} = {D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}
 		{79415484-52E5-4602-A74E-15E16B1E9363} = {D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42} = {79415484-52E5-4602-A74E-15E16B1E9363}
+		{589A7958-C39E-49D3-9152-268F98120D5A} = {79415484-52E5-4602-A74E-15E16B1E9363}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B051C5E6-3903-45C8-8524-DB878ADA5297}
