@@ -32,7 +32,6 @@ namespace AspNetCoreHero.Web
                     _configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
             services.AddRazorPages();
         }
 
