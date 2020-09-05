@@ -19,7 +19,7 @@ namespace AspNetCoreHero.Web.Pages
 
         public void OnGet()
         {
-
+            _logger.LogInformation("Hello Hero!");
         }
     }
 }
