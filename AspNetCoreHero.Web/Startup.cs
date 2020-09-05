@@ -26,11 +26,13 @@ namespace AspNetCoreHero.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructureShared(_configuration);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     _configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
             services.AddRazorPages();
         }
 

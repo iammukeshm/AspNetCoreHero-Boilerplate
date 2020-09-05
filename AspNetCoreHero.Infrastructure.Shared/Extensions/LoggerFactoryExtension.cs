@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AspNetCoreHero.Infrastructure.Shared.Extensions
 {
-    public static class ConfigureExtension
+    public static class LoggerFactoryExtension
     {
         public static void UseSerilog(this ILoggerFactory loggerFactory)
         {
