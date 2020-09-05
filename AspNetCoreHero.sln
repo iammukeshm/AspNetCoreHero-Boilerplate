@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Web", "AspNetCoreHero.Web\AspNetCoreHero.Web.csproj", "{03B7268C-86F8-4351-8EA8-654E1BC596AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Web", "AspNetCoreHero.Web\AspNetCoreHero.Web.csproj", "{03B7268C-86F8-4351-8EA8-654E1BC596AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.PublicAPI", "AspNetCoreHero.PublicAPI\AspNetCoreHero.PublicAPI.csproj", "{DFDC6CC2-9C98-4CF2-9668-36139A5ECCF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.PublicAPI", "AspNetCoreHero.PublicAPI\AspNetCoreHero.PublicAPI.csproj", "{DFDC6CC2-9C98-4CF2-9668-36139A5ECCF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Domain", "AspNetCoreHero.Domain\AspNetCoreHero.Domain.csproj", "{CF72131A-7F10-4293-9516-97FFDB7BD9B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Domain", "AspNetCoreHero.Domain\AspNetCoreHero.Domain.csproj", "{CF72131A-7F10-4293-9516-97FFDB7BD9B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Application", "AspNetCoreHero.Application\AspNetCoreHero.Application.csproj", "{B47C00AE-2A24-46BA-BEFF-89213698A0DF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Infrastructure.EntityFrameworkCore", "AspNetCoreHero.Infrastructure.EntityFrameworkCore\AspNetCoreHero.Infrastructure.EntityFrameworkCore.csproj", "{592579AA-965C-4F89-A350-EF90EE1D362A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Application", "AspNetCoreHero.Application\AspNetCoreHero.Application.csproj", "{B47C00AE-2A24-46BA-BEFF-89213698A0DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4F68612B-FAEF-48E1-826A-3EC63FB7709B}"
 EndProject
@@ -24,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Infrastructure.Shared", "AspNetCoreHero.Infrastructure.Shared\AspNetCoreHero.Infrastructure.Shared.csproj", "{55CD808F-70D4-46B5-B5E4-1C79D4011F42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Infrastructure.Shared", "AspNetCoreHero.Infrastructure.Shared\AspNetCoreHero.Infrastructure.Shared.csproj", "{55CD808F-70D4-46B5-B5E4-1C79D4011F42}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1CC56DA0-5B2D-44A1-9BC1-C7F817C510BD}"
 EndProject
@@ -50,10 +48,6 @@ Global
 		{B47C00AE-2A24-46BA-BEFF-89213698A0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B47C00AE-2A24-46BA-BEFF-89213698A0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B47C00AE-2A24-46BA-BEFF-89213698A0DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{592579AA-965C-4F89-A350-EF90EE1D362A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{592579AA-965C-4F89-A350-EF90EE1D362A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{592579AA-965C-4F89-A350-EF90EE1D362A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{592579AA-965C-4F89-A350-EF90EE1D362A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,7 +61,6 @@ Global
 		{DFDC6CC2-9C98-4CF2-9668-36139A5ECCF4} = {D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}
 		{CF72131A-7F10-4293-9516-97FFDB7BD9B4} = {4F68612B-FAEF-48E1-826A-3EC63FB7709B}
 		{B47C00AE-2A24-46BA-BEFF-89213698A0DF} = {4F68612B-FAEF-48E1-826A-3EC63FB7709B}
-		{592579AA-965C-4F89-A350-EF90EE1D362A} = {79415484-52E5-4602-A74E-15E16B1E9363}
 		{4F68612B-FAEF-48E1-826A-3EC63FB7709B} = {D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}
 		{79415484-52E5-4602-A74E-15E16B1E9363} = {D98D19B9-7DE0-4304-8F6C-7D54A86E2BFC}
 		{55CD808F-70D4-46B5-B5E4-1C79D4011F42} = {79415484-52E5-4602-A74E-15E16B1E9363}

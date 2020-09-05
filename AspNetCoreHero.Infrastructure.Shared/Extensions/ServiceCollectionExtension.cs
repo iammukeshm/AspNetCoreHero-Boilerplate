@@ -15,7 +15,7 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.IncludeXmlComments(string.Format(@"{0}\ASPNETCoreHero.PubliWebApi.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+                c.IncludeXmlComments(string.Format(@"{0}\SwaggerDocumentation.xml", System.AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("1", new OpenApiInfo
                 {
                     Version = "1",

@@ -7,10 +7,11 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
         public static void UseSwaggerService(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(setupAction =>
+            app.UseSwaggerUI(options =>
             {
-                setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET Core Hero - Boilerplate");
-                setupAction.RoutePrefix = "swagger";
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "ASP.NET Core Hero - Boilerplate");
+                options.RoutePrefix = "swagger";
+                options.DisplayRequestDuration();
             });
         }
     }

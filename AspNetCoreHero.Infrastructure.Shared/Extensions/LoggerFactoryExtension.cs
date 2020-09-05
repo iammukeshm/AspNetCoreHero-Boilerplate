@@ -8,7 +8,7 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
 {
     public static class LoggerFactoryExtension
     {
-        public static void UseSerilog(this ILoggerFactory loggerFactory)
+        public static void UseSerilogLogging(this ILoggerFactory loggerFactory)
         {
             loggerFactory.AddSerilog();
         }
