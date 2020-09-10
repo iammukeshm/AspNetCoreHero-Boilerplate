@@ -1,8 +1,11 @@
-﻿using AspNetCoreHero.Application.Enums.Identity;
+﻿using AspNetCoreHero.Application.Constants;
+using AspNetCoreHero.Application.Constants.Permissions;
+using AspNetCoreHero.Application.Enums.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,10 +17,24 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Identity
         {
             //Seed Roles
             await roleManager.CreateAsync(new IdentityRole(Roles.SuperAdmin.ToString()));
+            await roleManager.SeedClaimsForSuperAdmin();
+            
+
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Moderator.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Basic.ToString()));
         }
+
+        private async static Task SeedClaimsForSuperAdmin(this RoleManager<IdentityRole> roleManager)
+        {
+            var adminRole = new IdentityRole(Roles.SuperAdmin.ToString());
+            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, MasterPermissions.View));
+            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, MasterPermissions.Create));
+            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, MasterPermissions.Update));
+            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, MasterPermissions.View));
+            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, MasterPermissions.Delete));
+        }
+
         public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             //Seed Default User
