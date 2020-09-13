@@ -11,7 +11,7 @@
 }
 
 .content-wrapper, .main-footer, .main-header {
-    margin-left: 0px;
+    margin-left: 0px !important;
     margin-right: 250px;
 }
 
