@@ -1,15 +1,33 @@
-﻿@page
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_Layout</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin 2 - Blank</title>
+    <partial name="SBAdmin/_Styles" />
 </head>
-<body>
+<body id="page-top">
+    <div id="wrapper">
+        <partial name="SBAdmin/_Sidebar" />
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <partial name="SBAdmin/_Navigation" />
+                <div class="container-fluid">
+                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <partial name="SBAdmin/_Footer" />
+    <partial name="SBAdmin/_Scripts" />
+    @RenderSection("Scripts", required: false)
 </body>
+
 </html>
