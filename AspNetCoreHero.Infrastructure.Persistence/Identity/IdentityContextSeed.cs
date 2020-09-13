@@ -17,7 +17,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Identity
         {
             //Seed Roles
             await roleManager.CreateAsync(new IdentityRole(Roles.SuperAdmin.ToString()));
-            await roleManager.SeedClaimsForSuperAdmin();
+            //await roleManager.SeedClaimsForSuperAdmin();
             
 
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
