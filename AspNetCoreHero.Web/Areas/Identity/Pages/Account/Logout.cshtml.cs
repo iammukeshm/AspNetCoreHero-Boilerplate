@@ -23,8 +23,16 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+            await _signInManager.SignOutAsync();
+
+            _logger.LogInformation("User logged out.");
+            return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)

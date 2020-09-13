@@ -5,6 +5,14 @@
     {
       "library": "jquery-easing@1.4.1",
       "destination": "wwwroot/lib/jquery-easing/"
+    },
+    {
+      "library": "bootstrap-v4-rtl@4.5.2-1",
+      "destination": "wwwroot/lib/bootstrap-v4-rtl/"
+    },
+    {
+      "library": "bootstrap-rtl@3.4.0",
+      "destination": "wwwroot/lib/bootstrap-rtl/"
     }
   ]
 }

@@ -1,0 +1,97 @@
+﻿@page
+@model AspNetCoreHero.Web.Areas.Admin.Pages.UsersModel
+@{
+}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between">
+    <h1 class="h3 mb-0 text-gray-800">Users</h1>
+
+</div>
+<h4>Manage Users.</h4>
+<p></p>
+
+<div class="card shadow mb-4">
+    <div class="card-body table-responsive table-hover p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <div class="row">
+                                @if (@user.ProfilePicture != null)
+                                {
+                                    <div class="col-sm" style="max-width:80px">
+                                        <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))">
+                                    </div>
+                                }
+
+                                <div class="col-sm">
+                                    <a>
+                                        @user.FirstName @user.LastName
+                                    </a>
+                                    <br>
+                                    <small>
+                                        @user.Id
+                                    </small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a>
+                                @user.Email
+                            </a>
+                            <br>
+                            <small>
+                                @if (user.EmailConfirmed)
+                                {
+                                    <span class="badge badge-success">Email Confirmed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Email Not Confirme.</span>
+                                }
+                            </small>
+
+                        </td>
+                        <td>
+                            @if (user.IsActive)
+                            {
+                                <span class="badge badge-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Deactivated</span>
+                            }
+
+                        </td>
+                        <td text-right">
+                            <form method="post" style="display: inline-flex;">
+                                <button type="submit" style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" asp-page-handler="ViewProfile" class="btn btn-primary btn-sm">
+                                    Profile
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
