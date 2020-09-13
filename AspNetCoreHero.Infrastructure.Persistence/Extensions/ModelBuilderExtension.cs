@@ -19,7 +19,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             {
                 entity.ToTable(name: "Role");
             });
-            builder.Entity<IdentityUserRole<string>>(entity =>
+            builder.Entity<IdentityRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
             });

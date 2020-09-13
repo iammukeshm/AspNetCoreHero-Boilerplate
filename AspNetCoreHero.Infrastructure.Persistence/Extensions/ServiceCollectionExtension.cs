@@ -18,33 +18,24 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
     {
         public static void AddPersistenceInfrastructureForWeb(this IServiceCollection services, IConfiguration configuration)
         {
-            
-            services.AddPersistenceContexts(configuration);
-            
-            services.Configure<JWTConfiguration>(configuration.GetSection("JWTConfiguration"));
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
 
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Identity/Account/Login/";
-                    options.AccessDeniedPath = "/Account/Forbidden/";
-                });
+            services.AddPersistenceContexts(configuration);
+
+            services.Configure<JWTConfiguration>(configuration.GetSection("JWTConfiguration"));
+
         }
         public static void AddAuthenticationSchemeForWeb(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMvc(o =>
-            {
+{
                 //Add Authentication to all Controllers by default.
                 var policy = new AuthorizationPolicyBuilder()
-                .AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser()
-                    .Build();
-                o.Filters.Add(new AuthorizeFilter(policy));
+        .RequireAuthenticatedUser()
+        .Build();
+    o.Filters.Add(new AuthorizeFilter(policy));
 
-            });
+});
+
         }
         private static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)
         {
