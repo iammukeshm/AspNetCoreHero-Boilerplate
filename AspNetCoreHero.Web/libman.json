@@ -13,6 +13,10 @@
     {
       "library": "bootstrap-rtl@3.4.0",
       "destination": "wwwroot/lib/bootstrap-rtl/"
+    },
+    {
+      "library": "bootstrap-select@1.13.18",
+      "destination": "wwwroot/lib/bootstrap-select/"
     }
   ]
 }

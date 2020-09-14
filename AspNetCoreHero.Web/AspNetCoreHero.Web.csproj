@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Pages\Shared\AdminLTE\_Sidebar.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
@@ -23,8 +27,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Resources\Pages\Shared\AdminLTE\_Sidebar.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AspNetCoreHero.Infrastructure.Persistence\AspNetCoreHero.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\AspNetCoreHero.Infrastructure.Shared\AspNetCoreHero.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\js\dark-mode-switch.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

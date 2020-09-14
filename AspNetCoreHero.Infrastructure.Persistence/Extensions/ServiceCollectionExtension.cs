@@ -27,14 +27,11 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
         public static void AddAuthenticationSchemeForWeb(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMvc(o =>
-{
+            {
                 //Add Authentication to all Controllers by default.
-                var policy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-    o.Filters.Add(new AuthorizeFilter(policy));
-
-});
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                o.Filters.Add(new AuthorizeFilter(policy));
+            });
 
         }
         private static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)

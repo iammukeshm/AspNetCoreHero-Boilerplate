@@ -1,28 +1,26 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model AspNetCoreHero.Web.Areas.Admin.Pages.UsersModel
 @{
 }
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between">
-    <h1 class="h3 mb-0 text-gray-800">Users</h1>
-
-</div>
-<h4>Manage Users.</h4>
-<p></p>
+@{
+    ViewData["Title"] = localizer["Users"];
+    ViewData["Caption"] = localizer["Manage Users here"];
+}
 
 <div class="card shadow mb-4">
-    <div class="card-body table-responsive table-hover p-0">
+    <div class="card-body table-responsive p-0">
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        User
+                        @localizer["User"]
                     </th>
                     <th>
-                        Email
+                        @localizer["Email"]
                     </th>
                     <th>
-                        Status
+                        @localizer["Status"]
                     </th>
                     <th>
                     </th>
@@ -60,11 +58,11 @@
                             <small>
                                 @if (user.EmailConfirmed)
                                 {
-                                    <span class="badge badge-success">Email Confirmed</span>
+                                <span class="badge badge-success">@localizer["Email Confirmed"]</span>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-danger">Email Not Confirme.</span>
+                            <span class="badge badge-danger">@localizer["Email Not Confirmed"]</span>
                                 }
                             </small>
 
@@ -72,18 +70,18 @@
                         <td>
                             @if (user.IsActive)
                             {
-                                <span class="badge badge-success">Active</span>
+                            <span class="badge badge-success">@localizer["Active"]</span>
                             }
                             else
                             {
-                                <span class="badge badge-danger">Deactivated</span>
+                        <span class="badge badge-danger">@localizer["Deactivated"]</span>
                             }
 
                         </td>
                         <td text-right">
                             <form method="post" style="display: inline-flex;">
                                 <button type="submit" style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" asp-page-handler="ViewProfile" class="btn btn-primary btn-sm">
-                                    Profile
+                                    @localizer["Profile"]
                                 </button>
                             </form>
                         </td>

@@ -1,0 +1,18 @@
+﻿
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<div class="row mb-2">
+    <div class="col-sm-11">
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <h1 class="h3 mb-0 text-gray-800">@ViewData["Title"]</h1>
+        </div>
+        <h6>@ViewData["Caption"]</h6>
+        <p></p>
+    </div><!-- /.col -->
+    <div class="col-sm-1">
+
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="darkSwitch">
+            <label class="custom-control-label" for="darkSwitch">@localizer["Dark Mode"]</label>
+        </div>
+    </div><!-- /.col -->
+</div><!-- /.row -->

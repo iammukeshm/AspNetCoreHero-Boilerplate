@@ -1,6 +1,7 @@
 using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using AspNetCoreHero.Infrastructure.Shared.Extensions;
 using AspNetCoreHero.Web.Data;
+using AspNetCoreHero.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -27,17 +28,23 @@ namespace AspNetCoreHero.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
             services.AddRouting(o => o.LowercaseUrls = true);
             services.AddSharedInfrastructure(_configuration);
             services.AddPersistenceInfrastructureForWeb(_configuration);
             services.AddAuthenticationSchemeForWeb(_configuration);
             services.AddHttpContextAccessor();
+            services.AddMultiLingualSupport();
             services.AddRazorPages();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.UseSerilogLogging();
+            app.UseMultiLingualFeature();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
