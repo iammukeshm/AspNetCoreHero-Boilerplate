@@ -24,6 +24,9 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav" style=" margin-inline-start: auto; ">
+        <li class="nav-item dropdown no-arrow">
+            @await Html.PartialAsync("AdminLTE/_CulturePartial")
+        </li>
         @if (User.Identity.IsAuthenticated)
         {
             <!-- Nav Item - User Information -->
@@ -32,7 +35,7 @@
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"> @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</span>
                     @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
                     {
-                        <img class="img-profile rounded-circle" style="object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+                        <img class="img-profile rounded-circle" style="object-fit: cover; width: 30px; height: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
                     }
                 </a>
                 <!-- Dropdown - User Information -->
@@ -57,8 +60,6 @@
                 </div>
             </li>
         }
-        <li class="nav-item dropdown no-arrow">
-            @await Html.PartialAsync("AdminLTE/_CulturePartial")
-        </li>
+
     </ul>
 </nav>

@@ -32,14 +32,17 @@ function initTheme() {
         $('.content-wrapper').attr('style', 'background-color: #111');
         $('.card').attr('style', 'background-color: #212121');
         $('.main-footer').attr('style', 'background-color: #212121');
+        $('.form-control').attr('style', 'background-color: #212121!important');
+        //.form-control
     }
     else {
         document.body.removeAttribute('data-theme');
         $('#sideBar').addClass('sidebar-light-primary').removeClass('sidebar-dark-primary');
         $('#navigationBar').removeClass('navbar-dark').addClass('navbar-light');
         $('.content-wrapper').attr('style', 'background-color: #f4f6f9');
-        $('.card').attr('style', 'background-color: ##ffffff');
-        $('.main-footer').attr('style', 'background-color: ##ffffff');
+        $('.card').attr('style', 'background-color: #ffffff');
+        $('.main-footer').attr('style', 'background-color: #ffffff');
+        $('.form-control').attr('style', 'background-color: #ffffff!important');
     }
     
 }
@@ -59,6 +62,7 @@ function resetTheme() {
       $('.content-wrapper').attr('style', 'background-color: #111');
       $('.card').attr('style', 'background-color: #212121');
       $('.main-footer').attr('style', 'background-color: #212121');
+      $('.form-control').attr('style', 'background-color: #212121!important');
     localStorage.setItem('darkSwitch', 'dark');
   } else {
       document.body.removeAttribute('data-theme');
@@ -66,7 +70,8 @@ function resetTheme() {
       $('#navigationBar').removeClass('navbar-dark').addClass('navbar-light');
       $('.content-wrapper').attr('style', 'background-color: #f4f6f9');
       $('.card').attr('style', 'background-color: ##ffffff');
-      $('.main-footer').attr('style', 'background-color: ##ffffff');
+      $('.main-footer').attr('style', 'background-color: #ffffff');
+      $('.form-control').attr('style', 'background-color: #ffffff!important');
       //The specific CSS changes after the first one, are, of course, just examples.
     localStorage.removeItem('darkSwitch');
   }
