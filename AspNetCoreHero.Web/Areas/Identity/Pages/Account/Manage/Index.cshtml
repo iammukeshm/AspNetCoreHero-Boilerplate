@@ -1,8 +1,9 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Account Settings";
     ViewData["ActivePage"] = ManageNavPages.Index;
+    ViewData["Caption"] = "Manage Account Settings";
 }
 
 <div class="row">
@@ -46,17 +47,17 @@
                                 <label asp-for="Input.ProfilePicture" style="width: 100%;"></label>
                                 @if (Model.Input.ProfilePicture != null)
                                 {
-                                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+                                    <img id="profilePicture" style="width: 100%;object-fit: cover;padding-bottom: 10px;" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
                                 }
                                 else
                                 {
-                                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
+                                    <img id="profilePicture" style="width: 100%;object-fit: cover;padding-bottom: 10px;" src="">
                                 }
                                 <div class="custom-file">
                                     <input accept=".png,.jpg,.jpeg,.gif,.tif"
                                            asp-for="Input.ProfilePicture"
                                            type="file" class="custom-file-input"
-                                           onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" 
+                                           onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])"
                                            id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>

@@ -2,7 +2,7 @@
 
 namespace AspNetCoreHero.Domain.Common
 {
-    public abstract class AuditableEntity
+    public abstract class AuditableEntityBase
     {
         public virtual int Id { get; set; }
         public string CreatedBy { get; set; }
