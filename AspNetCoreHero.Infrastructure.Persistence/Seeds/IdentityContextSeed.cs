@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.Application.Constants;
 using AspNetCoreHero.Application.Constants.Permissions;
 using AspNetCoreHero.Application.Enums.Identity;
+using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Identity
+namespace AspNetCoreHero.Infrastructure.Persistence.Seeds
 {
     public static class IdentityContextSeed
     {

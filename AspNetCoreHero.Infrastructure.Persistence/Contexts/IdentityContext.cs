@@ -1,11 +1,9 @@
 ﻿using AspNetCoreHero.Infrastructure.Persistence.Extensions;
+using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Identity
+namespace AspNetCoreHero.Infrastructure.Persistence.Contexts
 {
     public class IdentityContext : IdentityDbContext<ApplicationUser>
     {
