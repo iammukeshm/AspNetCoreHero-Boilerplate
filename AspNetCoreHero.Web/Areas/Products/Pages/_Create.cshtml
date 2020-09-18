@@ -1,0 +1,48 @@
+﻿@{ Layout = null; }
+@using AspNetCoreHero.Web.Models.Shared.Modals
+<div class="modal fade" id="ProductCreateModal" tabindex="-1" role="dialog" aria-labelledby="TenantCreateModalLabel" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @await Html.PartialAsync("~/Pages/Shared/AdminLTE/Modals/_Header.cshtml", new HeaderViewModel("Create Products"))
+            <form name="tenantCreateForm" role="form" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">fdfd</label>
+                        <div class="col-md-9">
+                            <input type="text" name="TenancyName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">dfsd</label>
+                        <div class="col-md-9">
+                            <input type="text" name="Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row required">
+                        <label class="col-md-3 col-form-label">xcvxcv</label>
+                        <div class="col-md-9">
+                            <input type="email" name="AdminEmailAddress" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">thfghfgh</label>
+                        <div class="col-md-9">
+                            <input type="text" name="ConnectionString" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="CreateTenantIsActive">xcvxcv</label>
+                        <div class="col-md-9">
+                            <input id="CreateTenantIsActive" type="checkbox" name="IsActive" value="true" checked />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("~/Pages/Shared/AdminLTE/Modals/_FooterWithSaveAndCancel.cshtml")
+            </form>
+        </div>
+    </div>
+</div>

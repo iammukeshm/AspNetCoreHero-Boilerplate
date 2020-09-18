@@ -8,7 +8,15 @@
     ViewData["Caption"] = localizer["Manage Products here"];
 }
 <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+
 <div class="card shadow mb-4">
+    <div class="col-sm-12" style="padding:20px">
+        <a href="#" data-toggle="modal" data-target="#ProductCreateModal" class="btn bg-success">
+            <i class="fa fa-plus-square"></i>
+            Create
+        </a>
+    </div>
     <div class="card-body table-responsive">
         <table class="table" id="productTable">
             <thead>
@@ -45,6 +53,7 @@
     </div>
     <!-- /.card-body -->
 </div>
+<partial name="_Create" />
 @section Scripts
 {
     <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
