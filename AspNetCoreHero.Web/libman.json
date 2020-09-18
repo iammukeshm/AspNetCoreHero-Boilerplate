@@ -17,6 +17,10 @@
     {
       "library": "bootstrap-select@1.13.18",
       "destination": "wwwroot/lib/bootstrap-select/"
+    },
+    {
+      "library": "datatables@1.10.21",
+      "destination": "wwwroot/lib/datatables/"
     }
   ]
 }

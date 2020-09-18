@@ -1,5 +1,8 @@
 ﻿using AspNetCoreHero.Application.Configurations;
+using AspNetCoreHero.Application.Interfaces.Repositories;
+using AspNetCoreHero.Infrastructure.Persistence.Contexts;
 using AspNetCoreHero.Infrastructure.Persistence.Identity;
+using AspNetCoreHero.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +23,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
         {
 
             services.AddPersistenceContexts(configuration);
-
+            services.AddRepositories();
             services.Configure<JWTConfiguration>(configuration.GetSection("JWTConfiguration"));
 
         }
@@ -43,6 +46,17 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
                     .AddEntityFrameworkStores<IdentityContext>()
                     .AddDefaultUI()
             .AddDefaultTokenProviders();
+            services.AddDbContext<ApplicationContext>(options =>
+              options.UseSqlServer(
+                  configuration.GetConnectionString("DefaultConnection"),
+                  b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+        }
+        private static void AddRepositories(this IServiceCollection services)
+        {
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+            #endregion
         }
     }
 }

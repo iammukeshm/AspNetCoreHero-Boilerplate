@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="API\" />
-    <Folder Include="Areas\Admin\Pages\Partials\" />
   </ItemGroup>
 
   <ItemGroup>

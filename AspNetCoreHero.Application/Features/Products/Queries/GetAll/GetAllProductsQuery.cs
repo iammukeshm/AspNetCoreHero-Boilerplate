@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
+using AspNetCoreHero.Application.Interfaces.Repositories;
+using AspNetCoreHero.Application.Wrappers;
+using AutoMapper;
 using MediatR;
 
 namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
@@ -14,7 +18,7 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
     {
         private readonly IProductRepositoryAsync _productRepository;
         private readonly IMapper _mapper;
-        public GetAllProductsQueryHandler(IProductRepositoryAsync productRepository, IMapper mapper)
+        public GetAllProductsQueryHandler(IProductRepositoryAsync productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;

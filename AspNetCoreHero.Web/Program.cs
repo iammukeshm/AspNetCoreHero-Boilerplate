@@ -25,9 +25,9 @@ namespace AspNetCoreHero.Web
                 {
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    await Infrastructure.Persistence.Identity.IdentityContextSeed.SeedRolesAsync(userManager, roleManager);
-                    await Infrastructure.Persistence.Identity.IdentityContextSeed.SeedAdminAsync(userManager, roleManager);
-                    await Infrastructure.Persistence.Identity.IdentityContextSeed.SeedBasicUserAsync(userManager, roleManager);
+                    await Infrastructure.Persistence.Seeds.IdentityContextSeed.SeedRolesAsync(userManager, roleManager);
+                    await Infrastructure.Persistence.Seeds.IdentityContextSeed.SeedAdminAsync(userManager, roleManager);
+                    await Infrastructure.Persistence.Seeds.IdentityContextSeed.SeedBasicUserAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

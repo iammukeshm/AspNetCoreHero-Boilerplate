@@ -1,0 +1,53 @@
+﻿@page
+@model AspNetCoreHero.Web.Areas.Products.Pages.IndexModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+}
+@{
+    ViewData["Title"] = localizer["Products"];
+    ViewData["Caption"] = localizer["Manage Products here"];
+}
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<div class="card shadow mb-4">
+    <div class="card-body table-responsive">
+        <table class="table" id="productTable">
+            <thead>
+                <tr>
+                    <th>
+                        @localizer["User"]
+                    </th>
+                    <th>
+                        @localizer["Email"]
+                    </th>
+                    <th>
+                        @localizer["Status"]
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @product.Barcode
+                        </td>
+                        <td>
+                            @product.Name
+                        </td>
+                        <td>
+                            @product.Rate
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+@section Scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/Areas/products.js"></script>
+}
