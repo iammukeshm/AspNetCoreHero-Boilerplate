@@ -65,6 +65,7 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
             services.Configure<MailConfiguration>(_config.GetSection("MailConfiguration"));
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IMailService, MailService>();
+            services.AddTransient<ICacheService, MemoryCacheService>();
         }
     }
 }
