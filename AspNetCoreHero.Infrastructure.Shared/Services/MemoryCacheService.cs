@@ -3,9 +3,6 @@ using AspNetCoreHero.Application.Interfaces.Shared;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Infrastructure.Shared.Services
 {
@@ -29,16 +26,21 @@ namespace AspNetCoreHero.Infrastructure.Shared.Services
                 };
             }
         }
-        public bool TryGetCache<T>(string cacheKey, out T value)
+        public bool TryGet<T>(string cacheKey, out T value)
         {
             _memoryCache.TryGetValue(cacheKey, out value);
             if (value == null) return false;
             else return true;
         }
 
-        public T TrySetCache<T>(object cacheKey, T value)
+        public T Set<T>(string cacheKey, T value)
         {
             return _memoryCache.Set(cacheKey, value, _cacheOptions);
+        }
+
+        public void Remove(string cacheKey)
+        {
+            _memoryCache.Remove(cacheKey);
         }
     }
 }

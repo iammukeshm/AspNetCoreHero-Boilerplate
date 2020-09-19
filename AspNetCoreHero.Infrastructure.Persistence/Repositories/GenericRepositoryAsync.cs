@@ -1,11 +1,8 @@
-﻿using AspNetCoreHero.Application.Configurations;
+﻿using AspNetCoreHero.Application.Enums.Services;
 using AspNetCoreHero.Application.Interfaces.Repositories;
 using AspNetCoreHero.Application.Interfaces.Shared;
 using AspNetCoreHero.Infrastructure.Persistence.Contexts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +12,15 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
 {
     public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
     {
+        private readonly static Cache cacheTech = Cache.Memory;
+        private readonly string cacheKey = $"{typeof(T)}";
         private readonly ApplicationContext _dbContext;
-        private readonly IMemoryCache _memoryCache;
-        private readonly ICacheService cacheService;
+        private readonly Func<Cache, ICacheService> _cacheService;
 
-        public GenericRepositoryAsync(ApplicationContext dbContext, IMemoryCache memoryCache,ICacheService cacheService)
+        public GenericRepositoryAsync(ApplicationContext dbContext, Func<Cache, ICacheService> cacheService)
         {
             _dbContext = dbContext;
-            _memoryCache = memoryCache;
-            this.cacheService = cacheService;
-
-
+            _cacheService = cacheService;
         }
 
         public virtual async Task<T> GetByIdAsync(int id)
@@ -46,30 +41,32 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
         public async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
+            _cacheService(cacheTech).Remove(cacheKey);
             return entity;
         }
 
         public Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+            _cacheService(cacheTech).Remove(cacheKey);
             return Task.CompletedTask;
         }
 
         public Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            _cacheService(cacheTech).Remove(cacheKey);
             return Task.CompletedTask;
         }
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
-            var cacheKey = $"{typeof(T)}.{nameof(GetAllAsync)}";
-            if (!cacheService.TryGetCache(cacheKey, out IReadOnlyList<T> cachedList))
+            if (!_cacheService(cacheTech).TryGet(cacheKey, out IReadOnlyList<T> cachedList))
             {
                 cachedList = await _dbContext
                  .Set<T>()
                  .ToListAsync();
-                cacheService.TrySetCache(cacheKey, cachedList);
+                _cacheService(cacheTech).Set(cacheKey, cachedList);
             }
             return cachedList;
         }

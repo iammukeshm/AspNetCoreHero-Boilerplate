@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.Application.Configurations;
+using AspNetCoreHero.Application.Enums.Services;
 using AspNetCoreHero.Application.Interfaces.Shared;
 using AspNetCoreHero.Infrastructure.Shared.Services;
 using Microsoft.Extensions.Configuration;
@@ -65,7 +66,25 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
             services.Configure<MailConfiguration>(_config.GetSection("MailConfiguration"));
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IMailService, MailService>();
-            services.AddTransient<ICacheService, MemoryCacheService>();
+            services.AddCaching();
+        }
+
+        private static void AddCaching(this IServiceCollection services)
+        {
+            services.AddTransient<MemoryCacheService>();
+            services.AddTransient<RedisCacheService>();
+            services.AddTransient<Func<Cache, ICacheService>>(serviceProvider => key =>
+            {
+                switch (key)
+                {
+                    case Cache.Memory:
+                        return serviceProvider.GetService<MemoryCacheService>();
+                    case Cache.Redis:
+                        return serviceProvider.GetService<RedisCacheService>();
+                    default:
+                        return serviceProvider.GetService<MemoryCacheService>();
+                }
+            });
         }
     }
 }
