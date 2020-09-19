@@ -43,7 +43,11 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             services.AddDbContext<IdentityContext>(options =>
                            options.UseSqlServer(
                                configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireNonAlphanumeric = false;
+                })
                     .AddEntityFrameworkStores<IdentityContext>()
                     .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -57,6 +61,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             #region Repositories
             services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
         }
     }

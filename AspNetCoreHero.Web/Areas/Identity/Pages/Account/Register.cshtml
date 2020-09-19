@@ -21,9 +21,7 @@
     <!-- Custom fonts for this template-->
     <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/css/adminlte.css" rel="stylesheet" />
 
 </head>
 
@@ -42,6 +40,7 @@
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
                             <form class="user" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <small><div asp-validation-summary="All" class="text-danger"></div></small>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input asp-for="Input.FirstName" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
