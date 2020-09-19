@@ -8,9 +8,9 @@
     ViewData["Caption"] = localizer["Manage Users here"];
 }
 
-<div class="card shadow mb-4">
-    <div class="card-body table-responsive p-0">
-        <table class="table">
+<div class="card">
+    <div class="card-body table-responsive">
+        <table class="table" id="usersTable">
             <thead>
                 <tr>
                     <th>
@@ -58,11 +58,11 @@
                             <small>
                                 @if (user.EmailConfirmed)
                                 {
-                                <span class="badge badge-success">@localizer["Email Confirmed"]</span>
+                                    <span class="badge badge-success">@localizer["Email Confirmed"]</span>
                                 }
                                 else
                                 {
-                            <span class="badge badge-danger">@localizer["Email Not Confirmed"]</span>
+                                    <span class="badge badge-danger">@localizer["Email Not Confirmed"]</span>
                                 }
                             </small>
 
@@ -70,11 +70,11 @@
                         <td>
                             @if (user.IsActive)
                             {
-                            <span class="badge badge-success">@localizer["Active"]</span>
+                                <span class="badge badge-success">@localizer["Active"]</span>
                             }
                             else
                             {
-                        <span class="badge badge-danger">@localizer["Deactivated"]</span>
+                                <span class="badge badge-danger">@localizer["Deactivated"]</span>
                             }
 
                         </td>
@@ -93,3 +93,8 @@
     </div>
     <!-- /.card-body -->
 </div>
+@section Scripts
+{
+    <script src="~/js/Areas/Admin/users.js"></script>
+}
+
