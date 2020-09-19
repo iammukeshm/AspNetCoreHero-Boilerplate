@@ -43,6 +43,8 @@ namespace AspNetCoreHero.Web
             services.AddHttpContextAccessor();
             services.AddMultiLingualSupport();
             services.AddRazorPages();
+            //For In-Memory Caching
+            services.AddMemoryCache();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
         }
 

@@ -25,6 +25,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             services.AddPersistenceContexts(configuration);
             services.AddRepositories();
             services.Configure<JWTConfiguration>(configuration.GetSection("JWTConfiguration"));
+            services.Configure<MemoryCacheConfiguration>(configuration.GetSection("MemoryCacheConfiguration"));
 
         }
         public static void AddAuthenticationSchemeForWeb(this IServiceCollection services, IConfiguration configuration)

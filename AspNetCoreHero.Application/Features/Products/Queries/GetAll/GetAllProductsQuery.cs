@@ -9,12 +9,12 @@ using MediatR;
 namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
 {
 
-    public class GetAllProductsQuery : IRequest<PagedResponse<IEnumerable<GetAllProductsViewModel>>>
+    public class GetAllProductsQuery : IRequest<ResponseBase<IEnumerable<GetAllProductsViewModel>>>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
     }
-    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, PagedResponse<IEnumerable<GetAllProductsViewModel>>>
+    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, ResponseBase<IEnumerable<GetAllProductsViewModel>>>
     {
         private readonly IProductRepositoryAsync _productRepository;
         private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
             _mapper = mapper;
         }
 
-        public async Task<PagedResponse<IEnumerable<GetAllProductsViewModel>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<ResponseBase<IEnumerable<GetAllProductsViewModel>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
             var validFilter = _mapper.Map<GetAllProductsParameter>(request);
-            var product = await _productRepository.GetPagedReponseAsync(validFilter.PageNumber, validFilter.PageSize);
+            var product = await _productRepository.GetAllAsync();
             var productViewModel = _mapper.Map<IEnumerable<GetAllProductsViewModel>>(product);
-            return new PagedResponse<IEnumerable<GetAllProductsViewModel>>(productViewModel, validFilter.PageNumber, validFilter.PageSize);
+            return new ResponseBase<IEnumerable<GetAllProductsViewModel>>(productViewModel);
         }
     }
 }

@@ -1,23 +1,26 @@
-using AspNetCoreHero.Application.Interfaces.Repositories;
+using AspNetCoreHero.Application.Features.Products.Queries.GetAll;
 using AspNetCoreHero.Domain.Entities;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using AspNetCoreHero.Web.Models.Shared;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Web.Areas.Products.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : HeroPageBase<IndexModel>
     {
-        private readonly IProductRepositoryAsync _productRepositoryAsync;
-
-        public IndexModel(IProductRepositoryAsync productRepositoryAsync)
-        {
-            this._productRepositoryAsync = productRepositoryAsync;
-        }
         public IEnumerable<Product> Products { get; set; }
         public async Task OnGet()
         {
-            Products = await _productRepositoryAsync.GetAllAsync();
+            var response = await Mediator.Send(new GetAllProductsQuery());
+            if(response.Succeeded)
+            {
+                
+                var productsViewModel = response.Data;
+                Products = Mapper.Map<IEnumerable<Product>>(productsViewModel);
+                Logger.LogInformation(Products.Count().ToString());
+            }
         }
     }
 }
