@@ -7,9 +7,6 @@
     <DocumentationFile>SwaggerDocumentation.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AspNetCoreHero.Infrastructure.Shared\AspNetCoreHero.Infrastructure.Shared.csproj" />

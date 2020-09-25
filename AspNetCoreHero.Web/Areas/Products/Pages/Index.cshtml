@@ -10,50 +10,31 @@
 
 <div class="card">
     <div class="col-sm-12" style="padding:20px">
-        <a href="#" data-toggle="modal" data-target="#ProductCreateModal" class="btn bg-success">
+        <a onclick="jQueryModalGet('/products?handler=CreateOrEdit','Create Product')" class="btn bg-success">
             <i class="fa fa-plus-square"></i>
             Create
         </a>
+        <a id="reload" class="btn bg-warning">
+            <i class="fa fa-plus-square"></i>
+            Reload
+        </a>
     </div>
-    <div class="card-body table-responsive">
-        <table class="table table-bordered" id="productTable">
-            <thead>
-                <tr>
-                    <th>
-                        @localizer["User"]
-                    </th>
-                    <th>
-                        @localizer["Email"]
-                    </th>
-                    <th>
-                        @localizer["Status"]
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.Products)
-                {
-                    <tr>
-                        <td>
-                            @product.Barcode
-                        </td>
-                        <td>
-                            @product.Name
-                        </td>
-                        <td>
-                            @product.Rate
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
-    <!-- /.card-body -->
+    <div id="viewAll" class="card-body table-responsive"></div>
 </div>
-<partial name="_Create" />
+
 @section Scripts
 {
-    
-    <script src="~/js/Areas/products.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#viewAll').load('/products?handler=ProductsPartial');
+
+    });
+    $(function () {
+        $('#reload').on('click', function () {
+            $('#viewAll').load('/products?handler=ProductsPartial');
+        });
+    });
+</script>
+
 }
+

@@ -1,0 +1,51 @@
+﻿@using AspNetCoreHero.Web.Areas.Products.ViewModels
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<ProductViewModel>
+<table class="table table-bordered" id="productTable">
+    <thead>
+        <tr>
+            <th>
+                @localizer["Name"]
+            </th>
+            <th>
+                @localizer["Barcode"]
+            </th>
+            <th>
+                @localizer["Rate"]
+            </th>
+            <th>
+                @localizer["Actions"]
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var product in Model)
+            {
+        <tr>
+            <td>
+                @product.Name
+            </td>
+            <td>
+                @product.Barcode
+            </td>
+            <td>
+                @product.Rate
+            </td>
+            <td text-right">
+                <a onclick="jQueryModalGet('/products?handler=CreateOrEdit&id=@product.Id','Edit Product')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                <form asp-action="Delete" asp-route-id="@product.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+                    <button type="submit" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Delete</button>
+                </form>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#productTable").DataTable();
+    });
+</script>

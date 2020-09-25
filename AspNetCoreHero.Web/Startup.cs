@@ -2,18 +2,18 @@ using AspNetCoreHero.Application.Extensions;
 using AspNetCoreHero.Application.Interfaces.Shared;
 using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using AspNetCoreHero.Infrastructure.Shared.Extensions;
-using AspNetCoreHero.Web.Data;
 using AspNetCoreHero.Web.Extensions;
 using AspNetCoreHero.Web.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Reflection;
 
 namespace AspNetCoreHero.Web
 {
@@ -43,6 +43,9 @@ namespace AspNetCoreHero.Web
             services.AddHttpContextAccessor();
             services.AddMultiLingualSupport();
             services.AddRazorPages();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
             //For In-Memory Caching
             services.AddMemoryCache();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();

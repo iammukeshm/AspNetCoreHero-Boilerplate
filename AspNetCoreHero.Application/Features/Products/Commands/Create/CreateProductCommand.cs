@@ -35,8 +35,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Create
         {
             var product = _mapper.Map<Product>(request);
             await _productRepository.AddAsync(product);
-            await _unitOfWork.Commit(cancellationToken);
-            return new ResponseBase<int>(product.Id);
+            return new ResponseBase<int>(await _unitOfWork.Commit(cancellationToken));
         }
     }
 }
