@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AspNetCoreHero.Application.Wrappers
 {
-    public class PagedResponse<T> : ResponseBase<T>
+    public class PagedResponse<T> : Response<T>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

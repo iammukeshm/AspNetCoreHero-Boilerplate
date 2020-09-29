@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Application.Features.Products.Queries.GetById
 {
-    public class GetProductByIdQuery : IRequest<ResponseBase<Product>>
+    public class GetProductByIdQuery : IRequest<Response<Product>>
     {
         public int Id { get; set; }
-        public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ResponseBase<Product>>
+        public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Response<Product>>
         {
             private readonly IProductRepositoryAsync _productRepository;
             public GetProductByIdQueryHandler(IProductRepositoryAsync productRepository)
             {
                 _productRepository = productRepository;
             }
-            public async Task<ResponseBase<Product>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<Product>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
             {
                 var product = await _productRepository.GetByIdAsync(query.Id);
-                return new ResponseBase<Product>(product);
+                return new Response<Product>(product);
             }
         }
     }

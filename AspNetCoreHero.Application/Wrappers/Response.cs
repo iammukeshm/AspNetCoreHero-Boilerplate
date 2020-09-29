@@ -2,18 +2,18 @@
 
 namespace AspNetCoreHero.Application.Wrappers
 {
-    public class ResponseBase<T>
+    public class Response<T>
     {
-        public ResponseBase()
+        public Response()
         {
         }
-        public ResponseBase(T data, string message = null)
+        public Response(T data, string message = null)
         {
             Succeeded = true;
             Message = message;
             Data = data;
         }
-        public ResponseBase(string message)
+        public Response(string message)
         {
             Succeeded = false;
             Message = message;

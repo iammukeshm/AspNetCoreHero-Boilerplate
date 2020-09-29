@@ -1,34 +1,27 @@
+using AspNetCoreHero.Application.Constants.Permissions;
 using AspNetCoreHero.Application.Features.Products.Commands.Create;
 using AspNetCoreHero.Application.Features.Products.Queries.GetAll;
 using AspNetCoreHero.Application.Features.Products.Queries.GetById;
-using AspNetCoreHero.Application.Interfaces.Repositories;
-using AspNetCoreHero.Domain.Entities;
 using AspNetCoreHero.Web.Areas.Products.ViewModels;
-using AspNetCoreHero.Web.Extensions;
+using AspNetCoreHero.Web.Helpers;
 using AspNetCoreHero.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Web.Areas.Products.Pages
 {
-    public class IndexModel : HeroPageBase<IndexModel>
+    public class IndexModel : SuperPageModel<IndexModel>
     {
         public ProductViewModel Product { get; set; } = new ProductViewModel();
         public IEnumerable<ProductViewModel> Products { get; set; }
         public async Task OnGet()
         {
-
-
         }
         public async Task<PartialViewResult> OnGetProductsPartial()
         {
+            User.Check(new List<string> { MasterPermissions.View,ProductPermissions.View });
             var response = await Mediator.Send(new GetAllProductsQuery());
             if (response.Succeeded)
             {

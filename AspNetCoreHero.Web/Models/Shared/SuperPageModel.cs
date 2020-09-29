@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreHero.Web.Models.Shared
 {
-    public class HeroPageBase<T> : PageModel where T : class
+    public class SuperPageModel<T> : PageModel where T : class
     {
         private IMediator _mediator;
         private IMapper _mapper;

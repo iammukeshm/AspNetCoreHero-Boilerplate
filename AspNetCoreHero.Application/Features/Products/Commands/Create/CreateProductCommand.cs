@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Application.Features.Products.Commands.Create
 {
-    public partial class CreateProductCommand : IRequest<ResponseBase<int>>
+    public partial class CreateProductCommand : IRequest<Response<int>>
     {
         public string Name { get; set; }
         public string Barcode { get; set; }
         public string Description { get; set; }
         public decimal Rate { get; set; }
     }
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ResponseBase<int>>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<int>>
     {
         private readonly IProductRepositoryAsync _productRepository;
         private readonly IMapper _mapper;
@@ -31,11 +31,11 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Create
             _mapper = mapper;
         }
 
-        public async Task<ResponseBase<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<Response<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var product = _mapper.Map<Product>(request);
             await _productRepository.AddAsync(product);
-            return new ResponseBase<int>(await _unitOfWork.Commit(cancellationToken));
+            return new Response<int>(await _unitOfWork.Commit(cancellationToken));
         }
     }
 }
