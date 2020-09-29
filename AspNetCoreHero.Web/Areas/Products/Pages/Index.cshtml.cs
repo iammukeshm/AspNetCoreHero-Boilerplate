@@ -16,7 +16,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
     {
         public ProductViewModel Product { get; set; } = new ProductViewModel();
         public IEnumerable<ProductViewModel> Products { get; set; }
-        public async Task OnGet()
+        public void OnGet()
         {
         }
         public async Task<PartialViewResult> OnGetProductsPartial()
