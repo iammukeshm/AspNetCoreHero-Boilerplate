@@ -9,23 +9,40 @@
 <p></p>
 <h4>Profile Page</h4>
 <p></p>
-
-
 <div>
     @if (User.IsInRole("SuperAdmin"))
     {
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 text-secondary">Admin Area</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col">
+        if (!Model.IsSuperAdmin)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 text-secondary">Admin Area</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col">
+                                            @if (!@Model.IsActive)
+                                            {
+                                                <form method="post" style="display: inline-flex;">
+                                                    <button style='margin-right:16px' type="submit" id="activate-profile" asp-route-userId="@Model.UserId" asp-page-handler="ActivateUser" class="btn btn-success btn-sm">
+                                                        Activate
+                                                    </button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form method="post" style="display: inline-flex;">
+                                                    <button style='margin-right:16px' type="submit" class="btn btn-danger btn-sm" asp-route-userId="@Model.UserId" asp-page-handler="DeActivateUser">
+                                                        Deactivate
+                                                    </button>
 
+                                                </form>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -33,14 +50,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+        }
+
     }
 
     <div class="row">
         <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card shadow mb-4">
+                    <div class="card">
                         <div class="card-header py-3">
                             <h6 class="m-0 text-secondary">Profile Picture</h6>
                         </div>
@@ -53,7 +71,7 @@
                                     }
                                     else
                                     {
-                                        <img id="profilePicture" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="">
+                                        <img id="profilePicture" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="~/images/default-user.png">
                                     }
                                 </div>
                             </div>
@@ -67,7 +85,7 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card shadow mb-4">
+                    <div class="card">
                         <div class="card-header py-3">
                             <h6 class="m-0 text-secondary">About</h6>
                         </div>
@@ -88,5 +106,5 @@
 
 @section Scripts
 {
-    <script src="~/js/Profile/index.js"></script>
+    <script src="~/js/Areas/Profile/index.js"></script>
 }

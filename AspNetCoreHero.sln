@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1CC56DA0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Infrastructure.Persistence", "AspNetCoreHero.Infrastructure.Persistence\AspNetCoreHero.Infrastructure.Persistence.csproj", "{589A7958-C39E-49D3-9152-268F98120D5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreHero.Hangfire", "AspNetCoreHero.Hangfire\AspNetCoreHero.Hangfire.csproj", "{8AEFB76E-5A20-48E0-AC1F-29742923F0E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreHero.Hangfire", "AspNetCoreHero.Hangfire\AspNetCoreHero.Hangfire.csproj", "{8AEFB76E-5A20-48E0-AC1F-29742923F0E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

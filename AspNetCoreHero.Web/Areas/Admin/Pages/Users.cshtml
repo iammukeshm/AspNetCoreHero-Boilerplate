@@ -34,11 +34,17 @@
                             <div class="row">
                                 @if (@user.ProfilePicture != null)
                                 {
-                                    <div class="col-sm" style="max-width:80px">
+                                    <div class="col-sm" style=" max-width: 80px;margin-right: 20px;">
                                         <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))">
                                     </div>
                                 }
+                                else
 
+                                {
+                                    <div class="col-sm" style="max-width:80px; margin-right: 20px;">
+                                        <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="~/images/default-user.png">
+                                    </div>
+                                }
                                 <div class="col-sm">
                                     <a>
                                         @user.FirstName @user.LastName
@@ -79,11 +85,9 @@
 
                         </td>
                         <td text-right">
-                            <form method="post" style="display: inline-flex;">
-                                <button type="submit" style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" asp-page-handler="ViewProfile" class="btn btn-primary btn-sm">
-                                    @localizer["Profile"]
-                                </button>
-                            </form>
+                            <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="btn btn-primary btn-sm">
+                                @localizer["Profile"]
+                            </a>
                         </td>
                     </tr>
                 }

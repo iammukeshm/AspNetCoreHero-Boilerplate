@@ -95,8 +95,7 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                 {
                     if (!user.IsActive)
                     {
-                        ModelState.AddModelError(string.Empty, "Account is not active.");
-                        return Page();
+                        return RedirectToPage("./Deactivated");
                     }
                     else if (!user.EmailConfirmed)
                     {
@@ -126,6 +125,10 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                             return Page();
                         }
                     }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Email / Username Not Found.");
                 }
 
             }

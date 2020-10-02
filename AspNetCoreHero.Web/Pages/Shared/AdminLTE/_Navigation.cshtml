@@ -31,16 +31,20 @@
         {
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"> @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</span>
                     @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
                     {
                         <img class="img-profile rounded-circle" style="object-fit: cover; width: 30px; height: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
                     }
+                    else
+                    {
+                        <img class="img-profile rounded-circle" style="object-fit: cover; width: 30px; height: 30px;" src="~/images/default-user.png">
+                    }
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
+                <div class="dropdown-menu dropdown-menu-right animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" asp-area="Profile" asp-route-userId="@UserManager.GetUserId(User)">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>

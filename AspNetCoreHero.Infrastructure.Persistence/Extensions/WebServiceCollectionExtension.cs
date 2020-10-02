@@ -25,15 +25,13 @@ using System.Text;
 
 namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
 {
-    public static class ServiceCollectionExtension
+    public static class WebServiceCollectionExtension
     {
         public static void AddPersistenceInfrastructureForWeb(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddPersistenceContexts(configuration);
             services.AddRepositories();
             services.Configure<MemoryCacheConfiguration>(configuration.GetSection("MemoryCacheConfiguration"));
-
         }
         public static void AddAuthenticationSchemeForWeb(this IServiceCollection services, IConfiguration configuration)
         {
@@ -50,30 +48,13 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
         }
         private static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IdentityContext>(options =>
-                           options.UseSqlServer(
-                               configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequireNonAlphanumeric = false;
-                })
-                    .AddEntityFrameworkStores<IdentityContext>()
-                    .AddDefaultUI()
-            .AddDefaultTokenProviders();
-            services.AddDbContext<ApplicationContext>(options =>
-              options.UseSqlServer(
-                  configuration.GetConnectionString("DefaultConnection"),
-                  b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+            }).AddEntityFrameworkStores<IdentityContext>().AddDefaultUI().AddDefaultTokenProviders();
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer( configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
         }
-        private static void AddRepositories(this IServiceCollection services)
-        {
-            #region Repositories
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            #endregion
-        }
-       
     }
 }

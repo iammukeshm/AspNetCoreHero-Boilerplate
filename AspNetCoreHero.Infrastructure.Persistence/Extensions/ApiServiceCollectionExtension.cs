@@ -21,16 +21,11 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
 {
     public static class ApiServiceCollectionExtension
     {
-        public static void AddPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddPersistenceInfrastructureForApi(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IdentityContext>(options =>
-                           options.UseSqlServer(
-                               configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
-            services.AddDbContext<ApplicationContext>(options =>
-             options.UseSqlServer(
-                 configuration.GetConnectionString("DefaultConnection"),
-                 b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             services.AddRepositories();
             #region Services
             services.AddTransient<IAccountService, AccountService>();
@@ -40,8 +35,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(o =>
+            }) .AddJwtBearer(o =>
                 {
                     o.RequireHttpsMetadata = false;
                     o.SaveToken = false;
@@ -52,8 +46,8 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero,
-                        ValidIssuer = configuration["JWTSettings:Issuer"],
-                        ValidAudience = configuration["JWTSettings:Audience"],
+                        ValidIssuer = configuration["JWTConfiguration:Issuer"],
+                        ValidAudience = configuration["JWTConfiguration:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTConfiguration:Key"]))
                     };
                     o.Events = new JwtBearerEvents()
@@ -82,14 +76,6 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
                         },
                     };
                 });
-        }
-        private static void AddRepositories(this IServiceCollection services)
-        {
-            #region Repositories
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            #endregion
         }
     }
 }

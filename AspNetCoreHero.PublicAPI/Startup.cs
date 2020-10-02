@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AspNetCoreHero.Application.Extensions;
 using AspNetCoreHero.Application.Interfaces.Shared;
 using AspNetCoreHero.Infrastructure.Persistence.Extensions;
@@ -10,12 +6,9 @@ using AspNetCoreHero.PublicAPI.Extensions;
 using AspNetCoreHero.PublicAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreHero.PublicAPI
 {
@@ -36,7 +29,7 @@ namespace AspNetCoreHero.PublicAPI
             services.AddApiVersioningExtension();
             services.AddSwaggerService();
             services.AddControllers();
-            services.AddPersistenceInfrastructure(_configuration);
+            services.AddPersistenceInfrastructureForApi(_configuration);
             services.AddHttpContextAccessor();
             //For In-Memory Caching
             services.AddMemoryCache();

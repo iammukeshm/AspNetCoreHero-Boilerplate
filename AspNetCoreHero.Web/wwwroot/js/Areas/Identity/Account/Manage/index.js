@@ -1,0 +1,1 @@
+﻿$('#profilePicture').click(function () { $('#customFile').trigger('click'); });

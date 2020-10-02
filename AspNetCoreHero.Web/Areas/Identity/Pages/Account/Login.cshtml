@@ -34,15 +34,18 @@
 
             <div class="col-xl-10 col-lg-12 col-md-9">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block" style=" background: url('/images/bg-login.jpg');
+        background-position: center;
+        background-size: cover;
+    "></div>
                             <div class="col-lg-6">
-                                <div class="p-5">
+                                <div style="padding:10rem 3rem 10rem 3rem !important;">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">login.</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                     </div>
                                     <form class="user" id="account" method="post">
                                         <small><div asp-validation-summary="All" class="text-danger"></div></small>
@@ -89,7 +92,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card shadow mb-4">
+                <div class="card">
                     <div class="card-header py-3">
                         <h6 class="m-0 text-secondary">Default Credentials</h6>
                     </div>

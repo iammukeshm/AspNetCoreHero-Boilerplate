@@ -42,7 +42,7 @@ namespace AspNetCoreHero.Web
             services.AddAuthenticationSchemeForWeb(_configuration);
             services.AddHttpContextAccessor();
             services.AddMultiLingualSupport();
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IViewRenderService, ViewRenderService>();
