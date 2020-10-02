@@ -31229,7 +31229,10 @@ a.text-muted:hover {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 }
-
+.mrl-zero {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
 /* Modal Content (Image) */
 .modal-content {
     margin: auto;

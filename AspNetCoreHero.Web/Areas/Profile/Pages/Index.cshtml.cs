@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Web.Areas.Profile.Pages
@@ -15,6 +16,7 @@ namespace AspNetCoreHero.Web.Areas.Profile.Pages
         public string LastName { get; set; }
         public byte[] ProfilePicture { get; set; }
         public bool IsActive { get; set; }
+        public List<string> Roles { get; set; }
 
         public bool IsSuperAdmin { get; set; }
 
@@ -36,6 +38,7 @@ namespace AspNetCoreHero.Web.Areas.Profile.Pages
                 LastName = user.LastName;
                 IsActive = user.IsActive;
                 IsSuperAdmin = roles.Contains("SuperAdmin");
+                Roles = roles.ToList();
             }
            
         }

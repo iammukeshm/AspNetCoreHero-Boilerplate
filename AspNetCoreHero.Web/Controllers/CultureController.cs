@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace AspNetCoreHero.Web.Controllers
 {
     public class CultureController : Controller
     {
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult SetCulture(string culture, string returnUrl)
         {

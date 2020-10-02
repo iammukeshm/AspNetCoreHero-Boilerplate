@@ -7,7 +7,6 @@ var modalImg = document.getElementById("imageContent");
 var captionText = document.getElementById("caption");
 img.onclick = function () {
     modal.style.display = "block";
-    
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
     $('#ImageModal').show();

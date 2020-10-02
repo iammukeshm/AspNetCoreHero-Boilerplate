@@ -18,6 +18,10 @@
 .mr-auto-navbav {
     margin-right: auto !important;
 }
+.mrl-zero {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
 
 .navbar-expand .navbar-nav .nav-link {
     padding-right: 1rem;

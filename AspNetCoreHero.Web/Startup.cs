@@ -35,7 +35,10 @@ namespace AspNetCoreHero.Web
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
                 .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                });
             services.AddRouting(o => o.LowercaseUrls = true);
             services.AddSharedInfrastructure(_configuration);
             services.AddPersistenceInfrastructureForWeb(_configuration);

@@ -6,9 +6,13 @@
 <div class="d-sm-flex align-items-center justify-content-between">
     <h1 class="h3 mb-0 text-gray-800">@Model.FirstName @Model.LastName's Profile</h1>
 </div>
-<p></p>
-<h4>Profile Page</h4>
-<p></p>
+<div id="userRoles" style="padding: 20px 20px 20px 0px">
+    @foreach (var role in Model.Roles)
+    {
+        <span class="badge badge-success">@role</span>
+    }
+</div>
+
 <div>
     @if (User.IsInRole("SuperAdmin"))
     {
