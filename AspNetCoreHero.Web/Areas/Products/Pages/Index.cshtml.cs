@@ -1,5 +1,7 @@
 using AspNetCoreHero.Application.Constants.Permissions;
 using AspNetCoreHero.Application.Features.Products.Commands.Create;
+using AspNetCoreHero.Application.Features.Products.Commands.Delete;
+using AspNetCoreHero.Application.Features.Products.Commands.Update;
 using AspNetCoreHero.Application.Features.Products.Queries.GetAll;
 using AspNetCoreHero.Application.Features.Products.Queries.GetById;
 using AspNetCoreHero.Web.Areas.Products.ViewModels;
@@ -59,7 +61,8 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                 }
                 else
                 {
-                    //Update
+                    var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
+                    await Mediator.Send(updateProductCommand);
                 }
                 var response = await Mediator.Send(new GetAllProductsQuery());
                 if (response.Succeeded)
@@ -80,7 +83,14 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         }
         public async Task<JsonResult> OnPostDeleteAsync(int id)
         {
-            var html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_Products", new ProductViewModel());
+            var thisProduct = await Mediator.Send(new DeleteProductByIdCommand { Id = id });
+            var response = await Mediator.Send(new GetAllProductsQuery());
+            if (response.Succeeded)
+            {
+                var data = response.Data;
+                Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
+            }
+            var html = await Renderer.RenderPartialToStringAsync("_Products", Products);
             return new JsonResult(new { isValid = true, html = html });
         }
 

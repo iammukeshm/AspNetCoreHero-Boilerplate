@@ -35,7 +35,7 @@
             </td>
             <td text-right">
                 <a onclick="jQueryModalGet('/products?handler=CreateOrEdit&id=@product.Id','Edit Product')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
-                <form asp-action="Delete" asp-route-id="@product.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+                <form asp-page="Index" method="post" asp-page-handler="Delete" asp-route-id="@product.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
                     <button type="submit" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Delete</button>
                 </form>
             </td>

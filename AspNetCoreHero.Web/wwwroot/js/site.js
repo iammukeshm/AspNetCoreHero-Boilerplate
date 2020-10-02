@@ -65,7 +65,9 @@ $(document).ready(function () {
                     contentType: false,
                     processData: false,
                     success: function (res) {
-                        $('#view-all').html(res.html);
+                        if (res.isValid) {
+                            $('#viewAll').html(res.html)
+                        }
                     },
                     error: function (err) {
                         console.log(err)

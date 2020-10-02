@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.Application.Features.Products.Commands.Create;
+using AspNetCoreHero.Application.Features.Products.Commands.Update;
 using AspNetCoreHero.Application.Features.Products.Queries.GetAll;
 using AspNetCoreHero.Domain.Entities;
 using AspNetCoreHero.Web.Areas.Products.ViewModels;
@@ -16,6 +17,7 @@ namespace AspNetCoreHero.Web.Mappings
         {
             CreateMap<GetAllProductsViewModel, ProductViewModel>().ReverseMap();
             CreateMap<CreateProductCommand, ProductViewModel>().ReverseMap();
+            CreateMap<UpdateProductCommand, ProductViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
         }
     }
