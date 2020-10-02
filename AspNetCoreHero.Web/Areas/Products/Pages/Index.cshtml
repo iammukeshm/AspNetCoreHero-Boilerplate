@@ -10,15 +10,18 @@
 
 <div class="card">
     <div class="col-sm-12" style="padding:20px">
-        <a onclick="jQueryModalGet('/products?handler=CreateOrEdit','Create Product')" class="btn bg-success">
-            <i class="fa fa-plus-square"></i>
-            Create
-        </a>
-        <a id="reload" class="btn bg-warning">
-            <i class="fa fa-plus-square"></i>
-            Reload
-        </a>
-    </div>
+        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create || a.Value == ProductPermissions.Create))
+        {
+            <a onclick="jQueryModalGet('/products?handler=CreateOrEdit','Create Product')" class="btn bg-success">
+                <i class="fa fa-plus-square"></i>
+                Create
+            </a>
+        }
+            <a id="reload" class="btn bg-warning">
+                <i class="fa fa-plus-square"></i>
+                Reload
+            </a>
+        </div>
     <div id="viewAll" class="card-body table-responsive"></div>
 </div>
 

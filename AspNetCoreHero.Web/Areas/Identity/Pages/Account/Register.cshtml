@@ -9,10 +9,7 @@
 @inject IHtmlLocalizer<SharedResource> localizer
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,10 +17,8 @@
     <meta name="author" content="">
     <title>@ViewData["Title"]</title>
     <partial name="AdminLTE/_Styles" />
-
 </head>
-
-<body >
+<body>
     <nav id="navigationBar" class="main-header navbar navbar-expand navbar-light" style="margin:0 !important">
         <ul class="navbar-nav" style=" margin-inline-start: auto; ">
             <li class="nav-item dropdown no-arrow">
@@ -40,76 +35,80 @@
     </nav>
     <div class="content-wrapper mrl-zero" id="contentWrapper">
         <div class="container">
+            <div class="row justify-content-center">
 
-            <div class="card o-hidden border-0 my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block" style=" background: url('/images/bg-register.jpg');
+                <div class="col-xl-10 col-lg-12 col-md-9">
+                    <div class="card o-hidden border-0 my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-5 d-none d-lg-block" style=" background: url('/images/bg-register.jpg');
         background-position: center;
         background-size: cover;
     "></div>
-                        <div class="col-lg-7">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">@localizer["Register"]</h1>
+                                <div class="col-lg-7">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">@localizer["Register"]</h1>
+                                        </div>
+                                        <form class="user" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                            <small><div asp-validation-summary="All" class="text-danger"></div></small>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <input asp-for="Input.FirstName" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="@localizer["First Name"]">
+                                                    <small><span asp-validation-for="Input.FirstName" class="text-danger"></span></small>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input asp-for="Input.LastName" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="@localizer["Last Name"]">
+                                                    <small><span asp-validation-for="Input.LastName" class="text-danger"></span></small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input asp-for="Input.Email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="@localizer["Email Address"]">
+                                                <small><span asp-validation-for="Input.Email" class="text-danger"></span></small>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <input asp-for="Input.Password" autocomplete="off" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="@localizer["Password"]">
+                                                    <small><span asp-validation-for="Input.Password" class="text-danger"></span></small>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input asp-for="Input.ConfirmPassword" autocomplete="off" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="@localizer["Repeat Password"]">
+                                                    <small><span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span></small>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                                @localizer["Register Account"]
+                                            </button>
+                                            @*<hr>
+                                                <a href="index.html" class="btn btn-google btn-user btn-block">
+                                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                                </a>
+                                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                                </a>*@
+                                        </form>
+                                        <script type="text/javascript" language=javascript>
+                                            $.validator.unobtrusive.parse(document);
+                                        </script>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" asp-area="Identity" asp-page="/account/forgotpassword"> @localizer["Forgot Password?"]</a>
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="small" asp-area="Identity" asp-page="/account/login"> @localizer["Already have an account? Login!"]</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <form class="user" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                                    <small><div asp-validation-summary="All" class="text-danger"></div></small>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input asp-for="Input.FirstName" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="@localizer["First Name"]">
-                                            <small><span asp-validation-for="Input.FirstName" class="text-danger"></span></small>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input asp-for="Input.LastName" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="@localizer["Last Name"]">
-                                            <small><span asp-validation-for="Input.LastName" class="text-danger"></span></small>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input asp-for="Input.Email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="@localizer["Email Address"]">
-                                        <small><span asp-validation-for="Input.Email" class="text-danger"></span></small>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input asp-for="Input.Password" autocomplete="off" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="@localizer["Password"]">
-                                            <small><span asp-validation-for="Input.Password" class="text-danger"></span></small>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input asp-for="Input.ConfirmPassword" autocomplete="off" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="@localizer["Repeat Password"]">
-                                            <small><span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span></small>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        @localizer["Register Account"]
-                                    </button>
-                                    @*<hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Register with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                        </a>*@
-                                </form>
-                                <script type="text/javascript" language=javascript>
-                                    $.validator.unobtrusive.parse(document);
-                                </script>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" asp-area="Identity" asp-page="/account/forgotpassword"> @localizer["Forgot Password?"]</a>
-</div>
-                                <div class="text-center">
-                                    <a class="small" asp-area="Identity" asp-page="/account/login"> @localizer["Already have an account? Login!"]</a>
-</div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
     </div>
     <partial name="AdminLTE/_Scripts" />
 </body>
-</html>
 
+</html>

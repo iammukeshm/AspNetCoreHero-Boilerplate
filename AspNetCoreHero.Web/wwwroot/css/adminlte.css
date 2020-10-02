@@ -2522,7 +2522,9 @@ textarea.form-control {
     margin-bottom: 0;
   }
 }
-
+body {
+    background :rgb(244, 246, 249) !important;
+}
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -31278,4 +31280,7 @@ a.text-muted:hover {
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
+}
+.table th, .table td {
+    border-top: none !important;
 }

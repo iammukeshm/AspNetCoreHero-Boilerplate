@@ -30,6 +30,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Seeds
         {
 
             var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
+            await roleManager.AddPermissionClaim(adminRole, MasterPermissions.Create);
             await roleManager.AddPermissionClaim(adminRole, MasterPermissions.Update);
             await roleManager.AddPermissionClaim(adminRole, MasterPermissions.View);
             await roleManager.AddPermissionClaim(adminRole, MasterPermissions.Delete);

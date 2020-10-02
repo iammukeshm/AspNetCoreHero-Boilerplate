@@ -44,6 +44,8 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(MasterPermissions.Create, policy => { policy.RequireClaim(CustomClaimTypes.Permission, MasterPermissions.Create); });
+                options.AddPolicy(MasterPermissions.Update, policy => { policy.RequireClaim(CustomClaimTypes.Permission, MasterPermissions.Update); });
+                options.AddPolicy(MasterPermissions.Delete, policy => { policy.RequireClaim(CustomClaimTypes.Permission, MasterPermissions.Delete) ; });
             });
         }
         private static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)

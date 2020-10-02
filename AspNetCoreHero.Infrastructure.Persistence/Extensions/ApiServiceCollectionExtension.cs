@@ -7,8 +7,10 @@ using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using AspNetCoreHero.Infrastructure.Persistence.Repositories;
 using AspNetCoreHero.Infrastructure.Persistence.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,6 +78,14 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
                         },
                     };
                 });
+
+            services.AddMvc(o =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                o.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
     }
 }

@@ -9,8 +9,8 @@
 }
 
 <div class="card">
-    <div class="card-body table-responsive">
-        <table class="table table-bordered" id="usersTable">
+    <div class="card-body">
+        <table class="table table-striped" id="usersTable">
             <thead>
                 <tr>
                     <th>
@@ -22,7 +22,8 @@
                     <th>
                         @localizer["Status"]
                     </th>
-                    <th>
+                    <th  style="width:20%">
+                        @localizer["Actions"]
                     </th>
                 </tr>
             </thead>
@@ -84,7 +85,7 @@
                             }
 
                         </td>
-                        <td text-right">
+                        <td>
                             <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="btn btn-primary btn-sm">
                                 @localizer["Profile"]
                             </a>

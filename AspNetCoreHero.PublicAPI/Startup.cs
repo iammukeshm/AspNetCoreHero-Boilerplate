@@ -4,8 +4,10 @@ using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using AspNetCoreHero.Infrastructure.Shared.Extensions;
 using AspNetCoreHero.PublicAPI.Extensions;
 using AspNetCoreHero.PublicAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,6 +48,7 @@ namespace AspNetCoreHero.PublicAPI
             }
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwaggerService();
             app.UseEndpoints(endpoints =>

@@ -1,11 +1,4 @@
-﻿using System;
-using AspNetCoreHero.Web.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
 
 [assembly: HostingStartup(typeof(AspNetCoreHero.Web.Areas.Identity.IdentityHostingStartup))]
 namespace AspNetCoreHero.Web.Areas.Identity

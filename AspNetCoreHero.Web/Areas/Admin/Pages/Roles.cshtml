@@ -1,0 +1,35 @@
+﻿@page
+@model AspNetCoreHero.Web.Areas.Admin.Pages.RolesModel
+@{
+}
+<div class="card">
+    <div class="col-sm-12" style="padding:20px">
+        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create))
+        {
+            <a onclick="jQueryModalGet('/admin/roles?handler=CreateOrEdit','Create Role')" class="btn bg-success">
+                <i class="fa fa-plus-square"></i>
+                Create
+            </a>
+        }
+        <a id="reload" class="btn bg-warning">
+            <i class="fa fa-plus-square"></i>
+            Reload
+        </a>
+    </div>
+    <div id="viewAll" class="card-body table-responsive"></div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#viewAll').load('/admin/roles?handler=ViewAll');
+
+        });
+        $(function () {
+            $('#reload').on('click', function () {
+                $('#viewAll').load('/admin/roles?handler=ViewAll');
+            });
+        });
+    </script>
+}
