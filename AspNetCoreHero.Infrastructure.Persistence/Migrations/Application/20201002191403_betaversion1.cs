@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Migrations
+namespace AspNetCoreHero.Infrastructure.Persistence.Migrations.Application
 {
-    public partial class AddedProductsEntity : Migration
+    public partial class betaversion1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Migrations
                     Name = table.Column<string>(nullable: true),
                     Barcode = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Rate = table.Column<decimal>(type: "decimal(18,6)", nullable: false)
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

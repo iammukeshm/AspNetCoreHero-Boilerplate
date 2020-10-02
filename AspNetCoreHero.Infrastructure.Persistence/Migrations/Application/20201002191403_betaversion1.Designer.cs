@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Migrations
+namespace AspNetCoreHero.Infrastructure.Persistence.Migrations.Application
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201002141559_initial")]
-    partial class initial
+    [Migration("20201002191403_betaversion1")]
+    partial class betaversion1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

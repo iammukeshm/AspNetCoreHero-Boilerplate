@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Migrations.Identity
+namespace AspNetCoreHero.Infrastructure.Persistence.Migrations
 {
-    public partial class initial : Migration
+    public partial class betaversion1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

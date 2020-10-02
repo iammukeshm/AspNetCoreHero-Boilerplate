@@ -1,21 +1,18 @@
 ﻿@page
-@model AspNetCoreHero.Web.Areas.Admin.Pages.ClaimsModel
+@model AspNetCoreHero.Web.Areas.Admin.Pages.ManageUserRolesModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @{
 }
 <div class="card">
 
     <div id="viewAll" class="card-body table-responsive">
-        <form asp-page="Claims" method="post" asp-page-handler="Update" class="d-inline">
-            <input asp-for="@Model.RoleId" type="hidden" />
-            <table class="table table-striped" id="roleClaimsTable">
+        <form asp-page="ManageUserRoles" method="post" asp-page-handler="Update" class="d-inline">
+            <input asp-for="@Model.UserId" type="hidden" />
+            <table class="table table-striped" id="userRolesTable">
                 <thead>
                     <tr>
                         <th>
-                            @localizer["ClaimType"]
-                        </th>
-                        <th>
-                            @localizer["ClaimValue"]
+                            @localizer["RoleName"]
                         </th>
                         <th>
                             @localizer["Status"]
@@ -24,20 +21,16 @@
                 </thead>
                 <tbody>
 
-                    @for (int i = 0; i < Model.RoleClaims.Count(); i++)
+                    @for (int i = 0; i < Model.UserRoles.Count(); i++)
                     {
                         <tr>
                             <td>
-                                <input asp-for="@Model.RoleClaims[i].Type" type="hidden" />
-                                @Model.RoleClaims[i].Type
-                            </td>
-                            <td>
-                                <input asp-for="@Model.RoleClaims[i].Value" type="hidden" />
-                                @Model.RoleClaims[i].Value
+                                <input asp-for="@Model.UserRoles[i].RoleName" type="hidden" />
+                                @Model.UserRoles[i].RoleName
                             </td>
                             <td>
                                 <div class="form-check m-1">
-                                    <input asp-for="@Model.RoleClaims[i].Selected" class="form-check-input" />
+                                    <input asp-for="@Model.UserRoles[i].Selected" class="form-check-input" />
                                 </div>
                             </td>
                         </tr>
@@ -45,7 +38,7 @@
                 </tbody>
             </table>
 
-            <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
+            <div class="col-sm-12" style=" padding: 20px 20px 0px 0px">
                 <button type="submit" id="save" class="btn bg-success">
                     <i class="fa fa-check"></i>
                     Save
@@ -59,7 +52,7 @@
 {
     <script>
         $(document).ready(function () {
-            $("#roleClaimsTable").DataTable();
+            $("#userRolesTable").DataTable();
         });
     </script>
 }

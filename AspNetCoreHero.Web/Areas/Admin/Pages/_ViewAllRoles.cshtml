@@ -46,7 +46,7 @@
                                 <button type="submit" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> @localizer["Delete"]</button>
                             </form>
                         }
-                        @if (role.Name != "SuperAdmi1n")
+                        @if (role.Name != "SuperAdmin")
                         {
                             <a style='margin-right:16px' asp-area="Admin" asp-page="Claims" asp-route-roleId="@role.Id" asp-page-handler="ViewAll" class="btn btn-primary">
                                 <i class="fas fa-lock"></i> @localizer["Permissions"]

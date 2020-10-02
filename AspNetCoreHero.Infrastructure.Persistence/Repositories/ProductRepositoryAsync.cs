@@ -5,6 +5,7 @@ using AspNetCoreHero.Domain.Entities;
 using AspNetCoreHero.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
 {

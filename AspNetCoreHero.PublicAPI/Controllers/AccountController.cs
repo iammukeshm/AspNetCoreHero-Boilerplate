@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreHero.Application.DTOs.Account;
 using AspNetCoreHero.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace AspNetCoreHero.PublicAPI.Controllers
             _accountService = accountService;
         }
         [HttpPost("authenticate")]
+        [AllowAnonymous]
         public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
         {
             return Ok(await _accountService.AuthenticateAsync(request, GenerateIPAddress()));

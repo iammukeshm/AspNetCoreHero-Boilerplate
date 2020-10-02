@@ -67,7 +67,11 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Seeds
                     await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());
                 }
-
+                else
+                {
+                    await userManager.AddToRoleAsync(user, Roles.SuperAdmin.ToString());
+                }
+                
             }
         }
         public static async Task SeedBasicUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)

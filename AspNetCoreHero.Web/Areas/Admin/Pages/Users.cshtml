@@ -86,8 +86,11 @@
 
                         </td>
                         <td>
-                            <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="btn btn-primary btn-sm">
-                                @localizer["Profile"]
+                            <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="btn btn-primary">
+                                <i class="fas fa-user"></i> @localizer["Profile"]
+                            </a>
+                            <a style='margin-right:16px' asp-area="Admin" asp-page="ManageUserRoles" asp-page-handler="ViewAll" asp-route-userId="@user.Id" class="btn btn-primary">
+                                <i class="fas fa-wrench"></i> @localizer["Manage Roles"]
                             </a>
                         </td>
                     </tr>

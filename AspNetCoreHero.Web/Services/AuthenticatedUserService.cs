@@ -12,7 +12,7 @@ namespace AspNetCoreHero.Web.Services
     {
         public AuthenticatedUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue("uid");
+            UserId = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         public string UserId { get; }
