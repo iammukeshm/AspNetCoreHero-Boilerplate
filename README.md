@@ -1,6 +1,6 @@
 # ASP.NET Core Hero - Boilerplate
 
-## Beta V1
+## Beta V1.0 is Out!
 Feel Free to Clone the Project and try it out.
 
 ## Releases
@@ -58,8 +58,7 @@ Here are the credentials for the default users.
 - Infrastructure.Persistence Layer
 
 ### Architecture
-
-![ ASP.NET Core Hero Architecture](https://www.codewithmukesh.com/wp-content/uploads/2020/10/ASP.NET-Core-Hero-Boilerplate-template.png)
+Check out a [Diagramatic Representation of the Architecture here](https://www.codewithmukesh.com/wp-content/uploads/2020/10/ASP.NET-Core-Hero-Boilerplate-template.png)
 
 ### Feature Overview
 - Onion / Hexagonal Architecture
