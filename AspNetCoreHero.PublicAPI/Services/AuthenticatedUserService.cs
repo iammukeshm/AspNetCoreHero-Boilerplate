@@ -13,8 +13,11 @@ namespace AspNetCoreHero.PublicAPI.Services
         public AuthenticatedUserService(IHttpContextAccessor httpContextAccessor)
         {
             UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue("uid");
+            Username = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name).Value;
         }
 
         public string UserId { get; }
-    }
+
+        public string Username { get; }
+}
 }
