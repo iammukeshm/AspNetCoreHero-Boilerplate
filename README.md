@@ -6,6 +6,13 @@ Feel Free to Clone the Project and try it out.
 ## Releases
 v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm/AspNetCoreHero-Boilerplate/releases/tag/v1.0) 
 
+### Changelog
+* add fluent validation
+* added product images
+* UI improvement
+* activity log integration
+* added toast notification
+
 
 ## Problem It will Solve
 
