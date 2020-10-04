@@ -1,5 +1,9 @@
 # ASP.NET Core Hero - Boilerplate
 
+![.NET Core](https://github.com/iammukeshm/AspNetCoreHero-Boilerplate/workflows/.NET%20Core/badge.svg?branch=master)
+![GitHub stars](https://img.shields.io/github/stars/iammukeshm/AspNetCoreHero-Boilerplate)
+[![Twitter Follow](https://img.shields.io/twitter/follow/codewithmukesh?style=social&label=follow)](https://twitter.com/codewithmukesh)
+
 ## Beta V1.0 is Out!
 Feel Free to Clone the Project and try it out.
 
