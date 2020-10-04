@@ -23,16 +23,17 @@ Or, If you are feeling really generous, [Support the Project with a small contri
 - Bootstrap 4 / AdminLTE
 
 # Getting Started with ASP.NET Core Hero - Boilerplate Template
-
+0. Make sure you have EF CLI Tools installed. Open up Powershell and run the following command
+`dotnet tool install --global dotnet-ef`
 1. Clone this Repository and Extract it to a Folder.
 3. Change the Connection Strings for the Application and Identity in the PublicAPI/appsettings.json and Web/appsettings.json
 2. Run the following commands on Powershell in the Web Project's Directory.
-- dotnet restore
-- dotnet ef database update -Context ApplicationContext
-- dotnet ef database update -Context IdentityContext
-- dotnet run (OR) Run the Solution using Visual Studio 2019
+- `dotnet restore`
+- `dotnet ef database update -c ApplicationContext`
+- `dotnet ef database update -c IdentityContext`
+- `dotnet run` (OR) Run the Solution using Visual Studio 2019
 
-PS - If the above code doesnt work for some reason, try using -C instead of -Context
+PS - If the above code doesnt work for some reason, try using -c instead of -context or vice versa.
 
 Check out my [blog](https://www.codewithmukesh.com) or say [Hi on Twitter!](https://twitter.com/codewithmukesh)
    
