@@ -28,6 +28,7 @@
         <partial name="AdminLTE/Modals/_FormModal" />
     </div>
     <partial name="AdminLTE/_Scripts" />
+    @await Component.InvokeAsync("NToastNotify")
     @RenderSection("Scripts", required: false)
 </body>
 </html>

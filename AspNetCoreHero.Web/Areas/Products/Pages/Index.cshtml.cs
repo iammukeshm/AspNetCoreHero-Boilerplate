@@ -18,7 +18,6 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
 {
     public class IndexModel : SuperPageModel<IndexModel>
     {
-        public ProductViewModel Product { get; set; } = new ProductViewModel();
         public IEnumerable<ProductViewModel> Products { get; set; }
         public void OnGet()
         {
@@ -33,7 +32,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
             }
             return new PartialViewResult
             {
-                ViewName = "_Products",
+                ViewName = "_ViewAll",
                 ViewData = new ViewDataDictionary<IEnumerable<ProductViewModel>>(ViewData, Products)
             };
         }
@@ -47,8 +46,6 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                 var viewModel = Mapper.Map<ProductViewModel>(response.Data);
                 return new JsonResult(new { isValid = true, html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_CreateOrEdit", viewModel) });
             }
-
-
         }
         public async Task<JsonResult> OnPostCreateOrEditAsync(int id, ProductViewModel product)
         {
@@ -59,14 +56,14 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                     User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductPermissions.Create });
                     var createProductCommand = Mapper.Map<CreateProductCommand>(product);
                     var result = await Mediator.Send(createProductCommand);
-
-
+                    if(result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
                 }
                 else
                 {
                     User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductPermissions.Update });
                     var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
-                    await Mediator.Send(updateProductCommand);
+                    var result = await Mediator.Send(updateProductCommand);
+                    if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");
                 }
                 var response = await Mediator.Send(new GetAllProductsQuery());
                 if (response.Succeeded)
@@ -74,7 +71,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                     var data = response.Data;
                     Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
                 }
-                var html = await Renderer.RenderPartialToStringAsync("_Products", Products);
+                var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);
                 return new JsonResult(new { isValid = true, html = html });
             }
             else
@@ -82,20 +79,20 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                 var html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_CreateOrEdit", product);
                 return new JsonResult(new { isValid = false, html = html });
             }
-
-
         }
         public async Task<JsonResult> OnPostDeleteAsync(int id)
         {
             User.HasRequiredClaims(new List<string> { MasterPermissions.Delete, ProductPermissions.Delete });
             var thisProduct = await Mediator.Send(new DeleteProductByIdCommand { Id = id });
+            Notify.AddInfoToastMessage($"Product with Id {id} Deleted.");
             var response = await Mediator.Send(new GetAllProductsQuery());
             if (response.Succeeded)
             {
+                
                 var data = response.Data;
                 Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
             }
-            var html = await Renderer.RenderPartialToStringAsync("_Products", Products);
+            var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);
             return new JsonResult(new { isValid = true, html = html });
         }
 

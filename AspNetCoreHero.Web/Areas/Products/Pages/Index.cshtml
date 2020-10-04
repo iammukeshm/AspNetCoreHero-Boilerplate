@@ -7,7 +7,6 @@
     ViewData["Title"] = localizer["Products"];
     ViewData["Caption"] = localizer["Manage Products here"];
 }
-
 <div class="card">
     <div class="col-sm-12" style="padding:20px">
         @if (User.Claims.Any(a => a.Value == MasterPermissions.Create || a.Value == ProductPermissions.Create))

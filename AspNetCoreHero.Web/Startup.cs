@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NToastNotify;
 using Serilog;
 using System.Reflection;
 
@@ -38,6 +39,10 @@ namespace AspNetCoreHero.Web
                 .AddDataAnnotationsLocalization(options => {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                         factory.Create(typeof(SharedResource));
+                }).AddNToastNotifyToastr(new ToastrOptions()
+                {
+                    ProgressBar = true,
+                    PositionClass = ToastPositions.BottomRight
                 });
             services.AddRouting(o => o.LowercaseUrls = true);
             services.AddSharedInfrastructure(_configuration);
@@ -57,6 +62,8 @@ namespace AspNetCoreHero.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.UseSerilogLogging();
+            //NOTE this line must be above .UseMvc() line.
+            app.UseNToastNotify();
             app.UseMultiLingualFeature();
             if (env.IsDevelopment())
             {
