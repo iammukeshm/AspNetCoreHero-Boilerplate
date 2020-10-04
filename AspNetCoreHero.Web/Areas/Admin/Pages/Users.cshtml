@@ -22,7 +22,7 @@
                     <th>
                         @localizer["Status"]
                     </th>
-                    <th  style="width:40%">
+                    <th  style="width:10%">
                         @localizer["Actions"]
                     </th>
                 </tr>
@@ -86,12 +86,19 @@
 
                         </td>
                         <td>
-                            <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="btn btn-primary">
-                                <i class="fas fa-user"></i> @localizer["Profile"]
-                            </a>
-                            <a style='margin-right:16px' asp-area="Admin" asp-page="ManageUserRoles" asp-page-handler="ViewAll" asp-route-userId="@user.Id" class="btn btn-primary">
-                                <i class="fas fa-wrench"></i> @localizer["Manage Roles"]
-                            </a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Action
+                                </button>
+                                <div class="dropdown-menu shadow animated--grow-in">
+                                    <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="dropdown-item">
+                                        <i class="fas fa-user"></i> @localizer["Profile"]
+                                    </a>
+                                    <a style='margin-right:16px' asp-area="Admin" asp-page="ManageUserRoles" asp-page-handler="ViewAll" asp-route-userId="@user.Id" class="dropdown-item">
+                                        <i class="fas fa-wrench"></i> @localizer["Manage Roles"]
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }

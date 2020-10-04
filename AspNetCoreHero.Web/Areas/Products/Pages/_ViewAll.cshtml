@@ -43,7 +43,7 @@
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Action
                     </button>
-                    <div class="dropdown-menu shadow">
+                    <div class="dropdown-menu shadow animated--grow-in">
                         @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductPermissions.Update))
                         {
                             <a onclick="jQueryModalGet('/products?handler=CreateOrEdit&id=@product.Id','Edit Product')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>  Edit</a>
