@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function () {
+    $('.form-image').click(function () { $('#customFile').trigger('click'); });
     $(function () {
         $('.selectpicker').selectpicker();
     });

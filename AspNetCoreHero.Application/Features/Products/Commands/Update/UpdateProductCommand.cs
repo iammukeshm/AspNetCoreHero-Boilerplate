@@ -15,6 +15,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Update
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public byte[] Image { get; set; }
         public decimal Rate { get; set; }
         public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Response<int>>
         {
@@ -38,6 +39,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Update
                     product.Name = command.Name;
                     product.Rate = command.Rate;
                     product.Description = command.Description;
+                    product.Image = command.Image;
                     await _productRepository.UpdateAsync(product);
                     await _unitOfWork.Commit(cancellationToken);
                     return new Response<int>(product.Id);

@@ -17,5 +17,9 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
         {
             _products = dbContext.Set<Product>();
         }
+        public Task<bool> IsUniqueBarcodeAsync(string barcode)
+        {
+            return _products.AllAsync(p => p.Barcode != barcode);
+        }
     }
 }

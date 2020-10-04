@@ -8,10 +8,13 @@ using AspNetCoreHero.Web.Areas.Products.ViewModels;
 using AspNetCoreHero.Web.Extensions;
 using AspNetCoreHero.Web.Helpers;
 using AspNetCoreHero.Web.Models.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Web.Areas.Products.Pages
@@ -51,16 +54,31 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         {
             if (ModelState.IsValid)
             {
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
+                    using (var dataStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(dataStream);
+                        product.Image = dataStream.ToArray();
+                    }
+                }
+
                 if (id == 0)
                 {
                     User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductPermissions.Create });
                     var createProductCommand = Mapper.Map<CreateProductCommand>(product);
                     var result = await Mediator.Send(createProductCommand);
-                    if(result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
+                    if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
                 }
                 else
                 {
                     User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductPermissions.Update });
+                    if(product.Image==null)
+                    {
+                        var oldProduct = await Mediator.Send(new GetProductByIdQuery { Id = id });
+                        product.Image = oldProduct.Data.Image;
+                    }
                     var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
                     var result = await Mediator.Send(updateProductCommand);
                     if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");

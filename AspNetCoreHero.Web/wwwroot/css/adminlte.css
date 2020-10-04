@@ -6137,7 +6137,6 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
     margin: 1.75rem auto;
   }
   .modal-dialog-scrollable {
@@ -31222,7 +31221,6 @@ a.text-muted:hover {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */

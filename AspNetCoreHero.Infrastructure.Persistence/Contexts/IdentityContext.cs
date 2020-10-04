@@ -1,4 +1,5 @@
-﻿using AspNetCoreHero.Infrastructure.Persistence.Extensions;
+﻿using AspNetCoreHero.Domain.Common;
+using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

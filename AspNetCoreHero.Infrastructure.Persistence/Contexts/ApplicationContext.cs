@@ -24,23 +24,53 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Contexts
         }
         public DbSet<Product> Products { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntityBase>())
+            foreach (var entry in ChangeTracker.Entries<AuditableEntityBase>().ToList())
             {
+                var entityType = entry.Entity.GetType().Name;
                 switch (entry.State)
                 {
                     case EntityState.Added:
                         entry.Entity.Created = _dateTime.Now;
                         entry.Entity.CreatedBy = _authenticatedUser.UserId;
+                        try
+                        {
+                            await ActivityLogs.AddAsync(new ActivityLog
+                            {
+                                Action = "Added",
+                                DateTime = _dateTime.Now,
+                                UserId = _authenticatedUser.UserId,
+                                UserName = _authenticatedUser.Username,
+                                Entity = entityType,
+                                EntityId = ""
+                            });
+                        }
+                        catch{}
+                        
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModified = _dateTime.Now;
                         entry.Entity.LastModifiedBy = _authenticatedUser.UserId;
+                        try
+                        {
+                            await ActivityLogs.AddAsync(new ActivityLog
+                            {
+                                Action = "Modified",
+                                DateTime = _dateTime.Now,
+                                UserId = _authenticatedUser.UserId,
+                                UserName = _authenticatedUser.Username,
+                                Entity = entityType,
+                                EntityId = entry.Entity.Id.ToString()
+                            }) ;
+                        }
+                        catch { }
                         break;
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+            return await base.SaveChangesAsync(cancellationToken);
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

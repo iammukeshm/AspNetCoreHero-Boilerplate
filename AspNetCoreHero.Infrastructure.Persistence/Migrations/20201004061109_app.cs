@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AspNetCoreHero.Infrastructure.Persistence.Migrations.Application
+namespace AspNetCoreHero.Infrastructure.Persistence.Migrations
 {
-    public partial class betaversion1 : Migration
+    public partial class app : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Migrations.Application
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Barcode = table.Column<string>(nullable: true),
+                    Image = table.Column<byte[]>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },

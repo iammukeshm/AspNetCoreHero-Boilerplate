@@ -5,6 +5,7 @@ using AspNetCoreHero.Infrastructure.Shared.Extensions;
 using AspNetCoreHero.Web.Extensions;
 using AspNetCoreHero.Web.Services;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -50,7 +51,11 @@ namespace AspNetCoreHero.Web
             services.AddAuthenticationSchemeForWeb(_configuration);
             services.AddHttpContextAccessor();
             services.AddMultiLingualSupport();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddRazorPages().AddRazorRuntimeCompilation().AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IViewRenderService, ViewRenderService>();
