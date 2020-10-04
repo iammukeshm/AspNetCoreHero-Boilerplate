@@ -8,9 +8,11 @@
 Feel Free to Clone the Project and try it out.
 
 ## Releases
+v1.1 - Beta Release - Clone the Repository to get the latest codebase
 v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm/AspNetCoreHero-Boilerplate/releases/tag/v1.0) 
 
 ### Changelog
+#### v1.1
 * add fluent validation
 * added product images
 * UI improvement
