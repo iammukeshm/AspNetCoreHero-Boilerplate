@@ -1,12 +1,21 @@
-# ASP.NET Core Hero - Boilerplate
+# ASP.NET Core Hero - Boilerplate Template
 
+![.NET Core](https://github.com/iammukeshm/AspNetCoreHero-Boilerplate/workflows/.NET%20Core/badge.svg?branch=master)
+![GitHub stars](https://img.shields.io/github/stars/iammukeshm/AspNetCoreHero-Boilerplate)
+[![Twitter Follow](https://img.shields.io/twitter/follow/codewithmukesh?style=social&label=follow)](https://twitter.com/codewithmukesh)
+
+
+![ASP.NET Core Hero - Boilerplate Template](https://www.codewithmukesh.com/wp-content/uploads/2020/10/Featured-Image.png)
 ## Beta V1.0 is Out!
 Feel Free to Clone the Project and try it out.
 
 ## Releases
+v1.1 - Beta Release - Clone the Repository to get the latest codebase
+
 v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm/AspNetCoreHero-Boilerplate/releases/tag/v1.0) 
 
 ### Changelog
+#### v1.1
 * add fluent validation
 * added product images
 * UI improvement
