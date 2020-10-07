@@ -9,107 +9,32 @@
 }
 
 <div class="card">
-    <div class="card-body">
-        <table class="table table-striped" id="usersTable">
-            <thead>
-                <tr>
-                    <th>
-                        @localizer["User"]
-                    </th>
-                    <th>
-                        @localizer["Email"]
-                    </th>
-                    <th>
-                        @localizer["Status"]
-                    </th>
-                    <th  style="width:10%">
-                        @localizer["Actions"]
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model.Users)
-                {
-                    <tr>
-                        <td>
-                            <div class="row">
-                                @if (@user.ProfilePicture != null)
-                                {
-                                    <div class="col-sm" style=" max-width: 80px;margin-right: 20px;">
-                                        <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))">
-                                    </div>
-                                }
-                                else
-
-                                {
-                                    <div class="col-sm" style="max-width:80px; margin-right: 20px;">
-                                        <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="~/images/default-user.png">
-                                    </div>
-                                }
-                                <div class="col-sm">
-                                    <a>
-                                        @user.FirstName @user.LastName
-                                    </a>
-                                    <br>
-                                    <small>
-                                        @user.Id
-                                    </small>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <a>
-                                @user.Email
-                            </a>
-                            <br>
-                            <small>
-                                @if (user.EmailConfirmed)
-                                {
-                                    <span class="badge badge-success">@localizer["Email Confirmed"]</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">@localizer["Email Not Confirmed"]</span>
-                                }
-                            </small>
-
-                        </td>
-                        <td>
-                            @if (user.IsActive)
-                            {
-                                <span class="badge badge-success">@localizer["Active"]</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">@localizer["Deactivated"]</span>
-                            }
-
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Action
-                                </button>
-                                <div class="dropdown-menu shadow animated--grow-in">
-                                    <a style='margin-right:16px' asp-area="Profile" asp-page="Index" asp-route-userId="@user.Id" class="dropdown-item">
-                                        <i class="fas fa-user"></i> @localizer["Profile"]
-                                    </a>
-                                    <a style='margin-right:16px' asp-area="Admin" asp-page="ManageUserRoles" asp-page-handler="ViewAll" asp-route-userId="@user.Id" class="dropdown-item">
-                                        <i class="fas fa-wrench"></i> @localizer["Manage Roles"]
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
+    <div class="col-sm-12" style="padding:20px">
+        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create))
+        {
+            <a onclick="jQueryModalGet('/admin/users?handler=Create','Create User')" class="btn bg-success">
+                <i class="fa fa-plus-square"></i>
+                Create
+            </a>
+        }
+        <a id="reload" class="btn btn-primary text-white">
+            <i class="fa fas fa-bolt"></i>
+            Reload
+        </a>
     </div>
-    <!-- /.card-body -->
+    <div id="viewAll" class="card-body table-responsive"></div>
 </div>
 @section Scripts
 {
-    <script src="~/js/Areas/Admin/users.js"></script>
-}
+    <script>
+        $(document).ready(function () {
+            $('#viewAll').load('/admin/users?handler=ViewAll');
 
+        });
+        $(function () {
+            $('#reload').on('click', function () {
+                $('#viewAll').load('/admin/users?handler=ViewAll');
+            });
+        });
+    </script>
+}

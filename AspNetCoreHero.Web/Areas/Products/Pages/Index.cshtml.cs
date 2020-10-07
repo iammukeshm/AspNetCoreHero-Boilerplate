@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Web.Areas.Products.Pages
 {
-    public class IndexModel : SuperPageModel<IndexModel>
+    public class IndexModel : HeroPageModel<IndexModel>
     {
         public IEnumerable<ProductViewModel> Products { get; set; }
         public void OnGet()

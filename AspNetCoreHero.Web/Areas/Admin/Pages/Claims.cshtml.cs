@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace AspNetCoreHero.Web.Areas.Admin.Pages
 {
-    public class ClaimsModel : SuperPageModel<ClaimsModel>
+    public class ClaimsModel : HeroPageModel<ClaimsModel>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

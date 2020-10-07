@@ -17,7 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace AspNetCoreHero.Web.Areas.Admin.Pages
 {
     [Authorize(Roles = "SuperAdmin")]
-    public class RolesModel : SuperPageModel<RolesModel>
+    public class RolesModel : HeroPageModel<RolesModel>
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         public RolesModel(RoleManager<IdentityRole> roleManager)

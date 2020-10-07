@@ -9,7 +9,7 @@ using NToastNotify;
 
 namespace AspNetCoreHero.Web.Models.Shared
 {
-    public class SuperPageModel<T> : PageModel where T : class
+    public class HeroPageModel<T> : PageModel where T : class
     {
         private IMediator _mediator;
         private IMapper _mapper;
