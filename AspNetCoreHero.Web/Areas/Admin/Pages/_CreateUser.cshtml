@@ -1,8 +1,7 @@
 ﻿@using AspNetCoreHero.Web.Areas.Admin.ViewModels
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject IHtmlLocalizer<SharedResource> localizer
 @model UserViewModel
 <form id="create-form" method="post" asp-area="Admin" asp-page="Users" asp-page-handler="Create" onsubmit="return jQueryModalPost(this);">
-    <small><div asp-validation-summary="All" class="text-danger"></div></small>
     <div class="form-group row">
         <label class="col-md-3 col-form-label">@localizer["FirstName"]</label>
         <div class="col-md-9">

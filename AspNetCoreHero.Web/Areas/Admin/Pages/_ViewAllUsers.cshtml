@@ -1,5 +1,5 @@
 ﻿@using AspNetCoreHero.Web.Areas.Admin.ViewModels
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject IHtmlLocalizer<SharedResource> localizer
 @model IEnumerable<UserViewModel>
 <table class="table table-striped" id="usersTable">
     <thead>
@@ -24,7 +24,7 @@
             <tr>
                 <td>
                     <div class="row">
-                        @if (@user.ProfilePicture != null && user.ProfilePicture.Length >0)
+                        @if (@user.ProfilePicture != null && user.ProfilePicture.Length > 0)
                         {
                             <div class="col-sm" style=" max-width: 80px;margin-right: 20px;">
                                 <img class="img-profile rounded-circle" style="height: 75px;width:75px;object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))">

@@ -20,10 +20,11 @@ namespace AspNetCoreHero.PublicAPI.Controllers.v1
             return Ok(await Mediator.Send(new GetAllProductsQuery() { PageSize = filter.PageSize, PageNumber = filter.PageNumber }));
         }
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await Mediator.Send(new GetProductByIdQuery { Id = id }));
+            var product = await Mediator.Send(new GetProductByIdQuery { Id = id });
+            product.Data.Image = null;
+            return Ok(product);
         }
     }
 }

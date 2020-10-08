@@ -79,13 +79,6 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
                     };
                 });
 
-            services.AddMvc(o =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                o.Filters.Add(new AuthorizeFilter(policy));
-            });
         }
     }
 }

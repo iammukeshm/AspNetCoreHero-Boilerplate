@@ -11,6 +11,9 @@ using AspNetCoreHero.Web.Models.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,11 +60,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                 if (Request.Form.Files.Count > 0)
                 {
                     IFormFile file = Request.Form.Files.FirstOrDefault();
-                    using (var dataStream = new MemoryStream())
-                    {
-                        await file.CopyToAsync(dataStream);
-                        product.Image = dataStream.ToArray();
-                    }
+                    product.Image = file.OptimizeImageSize(400);
                 }
 
                 if (id == 0)

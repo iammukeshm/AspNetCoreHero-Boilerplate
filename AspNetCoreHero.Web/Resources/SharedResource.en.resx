@@ -126,6 +126,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
   <data name="Create an Account!" xml:space="preserve">
     <value>Create an Account!</value>
   </data>
@@ -135,16 +138,25 @@
   <data name="Default Credentials" xml:space="preserve">
     <value>Default Credentials</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="Email Address" xml:space="preserve">
     <value>Email Address</value>
   </data>
   <data name="First Name" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
   <data name="Forgot Password?" xml:space="preserve">
     <value>Forgot Password?</value>
   </data>
   <data name="Last Name" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
   <data name="Login" xml:space="preserve">
