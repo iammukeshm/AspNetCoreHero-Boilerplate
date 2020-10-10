@@ -1,28 +1,14 @@
 ﻿using AspNetCoreHero.Application.Configurations;
 using AspNetCoreHero.Application.Constants;
 using AspNetCoreHero.Application.Constants.Permissions;
-using AspNetCoreHero.Application.Interfaces;
-using AspNetCoreHero.Application.Interfaces.Repositories;
-using AspNetCoreHero.Application.Interfaces.Shared;
-using AspNetCoreHero.Application.Wrappers;
 using AspNetCoreHero.Infrastructure.Persistence.Contexts;
 using AspNetCoreHero.Infrastructure.Persistence.Identity;
-using AspNetCoreHero.Infrastructure.Persistence.Repositories;
-using AspNetCoreHero.Infrastructure.Persistence.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
 {
@@ -32,7 +18,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
         {
             services.AddPersistenceContexts(configuration);
             services.AddRepositories();
-            services.Configure<MemoryCacheConfiguration>(configuration.GetSection("MemoryCacheConfiguration"));
+            services.Configure<CacheConfiguration>(configuration.GetSection("CacheConfiguration"));
         }
         public static void AddAuthenticationSchemeForWeb(this IServiceCollection services, IConfiguration configuration)
         {

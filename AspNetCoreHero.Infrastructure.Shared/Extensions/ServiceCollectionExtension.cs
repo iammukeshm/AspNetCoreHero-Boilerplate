@@ -16,7 +16,7 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
         public static void AddSharedInfrastructure(this IServiceCollection services, IConfiguration _config)
         {
             services.Configure<MailConfiguration>(_config.GetSection("MailConfiguration"));
-            services.Configure<MemoryCacheConfiguration>(_config.GetSection("MemoryCacheConfiguration"));
+            services.Configure<CacheConfiguration>(_config.GetSection("MemoryCacheConfiguration"));
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IMailService, MailService>();
             services.AddCaching();
@@ -25,13 +25,13 @@ namespace AspNetCoreHero.Infrastructure.Shared.Extensions
         {
             services.AddTransient<MemoryCacheService>();
             services.AddTransient<RedisCacheService>();
-            services.AddTransient<Func<Cache, ICacheService>>(serviceProvider => key =>
+            services.AddTransient<Func<CacheTech, ICacheService>>(serviceProvider => key =>
             {
                 switch (key)
                 {
-                    case Cache.Memory:
+                    case CacheTech.Memory:
                         return serviceProvider.GetService<MemoryCacheService>();
-                    case Cache.Redis:
+                    case CacheTech.Redis:
                         return serviceProvider.GetService<RedisCacheService>();
                     default:
                         return serviceProvider.GetService<MemoryCacheService>();

@@ -13,7 +13,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
     {
         private readonly DbSet<Product> _products;
 
-        public ProductRepositoryAsync(ApplicationContext dbContext, Func<Cache, ICacheService> cacheService) : base(dbContext, cacheService)
+        public ProductRepositoryAsync(ApplicationContext dbContext, Func<CacheTech, ICacheService> cacheService) : base(dbContext, cacheService)
         {
             _products = dbContext.Set<Product>();
         }

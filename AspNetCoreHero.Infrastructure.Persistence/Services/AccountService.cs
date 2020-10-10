@@ -1,5 +1,7 @@
 ﻿using AspNetCoreHero.Application.Configurations;
 using AspNetCoreHero.Application.DTOs.Account;
+using AspNetCoreHero.Application.DTOs.Mail;
+using AspNetCoreHero.Application.Enums.Identity;
 using AspNetCoreHero.Application.Exceptions;
 using AspNetCoreHero.Application.Interfaces;
 using AspNetCoreHero.Application.Interfaces.Shared;
@@ -7,6 +9,7 @@ using AspNetCoreHero.Application.Wrappers;
 using AspNetCoreHero.Infrastructure.Persistence.Helpers;
 using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -25,13 +28,16 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JWTConfiguration _jwtSettings;
+        private readonly IMailService _mailService;
         public AccountService(UserManager<ApplicationUser> userManager,
             IOptions<JWTConfiguration> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IMailService mailService)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _mailService = mailService;
         }
 
         public async Task<Response<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request, string ipAddress)
@@ -64,17 +70,57 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Services
             return new Response<AuthenticationResponse>(response, $"Authenticated {user.UserName}");
         }
 
+        public async Task<Response<string>> RegisterAsync(RegisterRequest request, string origin)
+        {
+            var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
+            if (userWithSameUserName != null)
+            {
+                throw new ApiException($"Username '{request.UserName}' is already taken.");
+            }
+            var user = new ApplicationUser
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName
+            };
+            var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
+            if (userWithSameEmail == null)
+            {
+                var result = await _userManager.CreateAsync(user, request.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
+                    var verificationUri = await SendVerificationEmail(user, origin);
+                    //TODO: Attach Email Service here and configure it via appsettings
+                    await _mailService.SendAsync(new MailRequest() { From = "mail@codewithmukesh.com", To = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
+                    return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
+                }
+                else
+                {
+                    throw new ApiException($"{result.Errors}");
+                }
+            }
+            else
+            {
+                throw new ApiException($"Email {request.Email } is already registered.");
+            }
+        }
 
         private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
+
             var roleClaims = new List<Claim>();
+
             for (int i = 0; i < roles.Count; i++)
             {
                 roleClaims.Add(new Claim("roles", roles[i]));
             }
+
             string ipAddress = IPHelper.GetIpAddress();
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
@@ -85,8 +131,10 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Services
             }
             .Union(userClaims)
             .Union(roleClaims);
+
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
@@ -105,6 +153,32 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Services
             return BitConverter.ToString(randomBytes).Replace("-", "");
         }
 
+        private async Task<string> SendVerificationEmail(ApplicationUser user, string origin)
+        {
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var route = "api/account/confirm-email/";
+            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
+            var verificationUri = QueryHelpers.AddQueryString(_enpointUri.ToString(), "userId", user.Id);
+            verificationUri = QueryHelpers.AddQueryString(verificationUri, "code", code);
+            //Email Service Call Here
+            return verificationUri;
+        }
+
+        public async Task<Response<string>> ConfirmEmailAsync(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+            {
+                return new Response<string>(user.Id, message: $"Account Confirmed for {user.Email}. You can now use the /api/Account/authenticate endpoint.");
+            }
+            else
+            {
+                throw new ApiException($"An error occured while confirming {user.Email}.");
+            }
+        }
 
         private RefreshToken GenerateRefreshToken(string ipAddress)
         {
@@ -115,6 +189,40 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Services
                 Created = DateTime.UtcNow,
                 CreatedByIp = ipAddress
             };
+        }
+
+        public async Task ForgotPassword(ForgotPasswordRequest model, string origin)
+        {
+            var account = await _userManager.FindByEmailAsync(model.Email);
+
+            // always return ok response to prevent email enumeration
+            if (account == null) return;
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(account);
+            var route = "api/account/reset-password/";
+            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
+            var emailRequest = new MailRequest()
+            {
+                Body = $"You reset token is - {code}",
+                To = model.Email,
+                Subject = "Reset Password",
+            };
+            await _mailService.SendAsync(emailRequest);
+        }
+
+        public async Task<Response<string>> ResetPassword(ResetPasswordRequest model)
+        {
+            var account = await _userManager.FindByEmailAsync(model.Email);
+            if (account == null) throw new ApiException($"No Accounts Registered with {model.Email}.");
+            var result = await _userManager.ResetPasswordAsync(account, model.Token, model.Password);
+            if (result.Succeeded)
+            {
+                return new Response<string>(model.Email, message: $"Password Resetted.");
+            }
+            else
+            {
+                throw new ApiException($"Error occured while reseting the password.");
+            }
         }
     }
 }

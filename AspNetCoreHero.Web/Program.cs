@@ -23,6 +23,7 @@ namespace AspNetCoreHero.Web
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
+
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await Infrastructure.Persistence.Seeds.IdentityContextSeed.SeedRolesAsync(userManager, roleManager);

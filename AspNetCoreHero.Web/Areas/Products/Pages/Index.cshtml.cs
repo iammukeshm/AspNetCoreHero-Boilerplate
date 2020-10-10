@@ -11,6 +11,7 @@ using AspNetCoreHero.Web.Models.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -60,7 +61,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                 if (Request.Form.Files.Count > 0)
                 {
                     IFormFile file = Request.Form.Files.FirstOrDefault();
-                    product.Image = file.OptimizeImageSize(400);
+                    product.Image = file.OptimizeImageSize(400,400);
                 }
 
                 if (id == 0)
@@ -79,8 +80,18 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                         product.Image = oldProduct.Data.Image;
                     }
                     var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
-                    var result = await Mediator.Send(updateProductCommand);
-                    if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");
+
+                    try
+                    {
+                        var result = await Mediator.Send(updateProductCommand);
+                        if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogInformation(ex.Message);
+                        throw;
+                    }
+                   
                 }
                 var response = await Mediator.Send(new GetAllProductsQuery());
                 if (response.Succeeded)

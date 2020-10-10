@@ -2,6 +2,7 @@ using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SixLabors.ImageSharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace AspNetCoreHero.Web.Areas.Profile.Pages
         public string LastName { get; set; }
         public byte[] ProfilePicture { get; set; }
         public bool IsActive { get; set; }
+        public int ImageHeight { get; set; }
+        public int ImageWidth { get; set; }
         public List<string> Roles { get; set; }
 
         public bool IsSuperAdmin { get; set; }
@@ -39,6 +42,12 @@ namespace AspNetCoreHero.Web.Areas.Profile.Pages
                 IsActive = user.IsActive;
                 IsSuperAdmin = roles.Contains("SuperAdmin");
                 Roles = roles.ToList();
+                //if(ProfilePicture.Length>0)
+                //{
+                //    var image = Image.Load(ProfilePicture);
+                //    ImageHeight = image.Height;
+                //    ImageWidth = image.Width;
+                //}
             }
            
         }

@@ -9,10 +9,10 @@ namespace AspNetCoreHero.Infrastructure.Shared.Services
     public class MemoryCacheService : ICacheService
     {
         private readonly IMemoryCache _memoryCache;
-        private readonly MemoryCacheConfiguration _cacheConfig;
+        private readonly CacheConfiguration _cacheConfig;
         private MemoryCacheEntryOptions _cacheOptions;
 
-        public MemoryCacheService(IMemoryCache memoryCache, IOptions<MemoryCacheConfiguration> cacheConfig)
+        public MemoryCacheService(IMemoryCache memoryCache, IOptions<CacheConfiguration> cacheConfig)
         {
             _memoryCache = memoryCache;
             _cacheConfig = cacheConfig.Value;

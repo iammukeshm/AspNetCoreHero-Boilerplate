@@ -35,7 +35,7 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
             _logger = logger;
             _emailSender = emailSender;
         }
-        public async Task OnGet()
+        public void OnGet()
         {
         }
         public async Task<PartialViewResult> OnGetViewAll()

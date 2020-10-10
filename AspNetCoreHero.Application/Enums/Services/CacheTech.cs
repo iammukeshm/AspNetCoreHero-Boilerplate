@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AspNetCoreHero.Application.Enums.Services
 {
-    public enum Cache
+    public enum CacheTech
     {
         Memory,
         Redis
