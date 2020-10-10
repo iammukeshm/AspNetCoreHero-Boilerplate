@@ -22,6 +22,10 @@ v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm
 * activity log integration
 * added toast notification
 * Superadmins can now create users directly from Dashboard! Client / Server side Validations enabled
+* Custom Error Pages
+* Removed Hangfire Caching
+* Complete Account Management on Public API (Register / Forgot Password / Confirm Email)
+* UI Improvements for Register / Locked / Error Pages
 
 
 ## Problem It will Solve
