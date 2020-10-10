@@ -12,6 +12,8 @@ namespace AspNetCoreHero.Web.Pages
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {
+        public int Code { get; set; }
+        public string Message { get; set; }
         public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
@@ -23,9 +25,19 @@ namespace AspNetCoreHero.Web.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(int code)
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            Code = code;
+            switch(code)
+            {
+                case 404:
+                    Message = "Page Not Found! Please ensure that you have entered the correct URL.";
+                    break;
+                default:
+                    Message = "An Error has occcured.";
+                    break;
+            }
         }
     }
 }

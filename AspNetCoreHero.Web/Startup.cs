@@ -70,17 +70,7 @@ namespace AspNetCoreHero.Web
             //NOTE this line must be above .UseMvc() line.
             app.UseNToastNotify();
             app.UseMultiLingualFeature();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
-
+            app.UseStatusCodePagesWithRedirects("/Error?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

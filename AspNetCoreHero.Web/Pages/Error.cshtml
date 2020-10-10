@@ -2,25 +2,35 @@
 @model ErrorModel
 @{
     ViewData["Title"] = "Error";
+    Layout = null;
 }
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Model.Code Error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <partial name="AdminLTE/_Styles" />
+</head>
+<body class="hold-transition login-page" style="background: white!important;">
+    <div class="login-box" style="width:600px!important;">
+        <div class="login-logo">
+            <a href="https://codewithmukesh.com">Error <b>@Model.Code</b>!</a>
+        </div>
+        <!-- /.login-logo -->
+        <p class="login-box-msg">@Model.Message</p>
+        <!-- /.login-card-body -->
+        <div style="text-align: -webkit-center;">
+            <p class="mb-1">
+                <a class="btn btn-danger" href="javascript:history.back()">Go Back</a>
+            </p>
+            <br />
+            <small style="font-size:15px">
+                Made with <span style="color: #e25555;">&hearts;</span> by <a href="http://codewithmukesh.com">codewithmukesh</a>.
+            </small>
+        </div>
+    </div>
+    <partial name="AdminLTE/_Scripts" />
+</body>
+</html>
