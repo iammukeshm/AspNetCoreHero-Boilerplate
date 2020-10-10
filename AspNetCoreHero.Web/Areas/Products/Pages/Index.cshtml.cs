@@ -76,7 +76,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                     if (Request.Form.Files.Count > 0)
                     {
                         IFormFile file = Request.Form.Files.FirstOrDefault();
-                        product.Image = file.OptimizeImageSize(400, 400);
+                        product.Image = file.OptimizeImageSize(700, 700);
                     }
 
                     if (id == 0)

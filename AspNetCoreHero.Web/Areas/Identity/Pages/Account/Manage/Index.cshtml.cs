@@ -146,7 +146,7 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account.Manage
             if (Request.Form.Files.Count > 0)
             {
                 IFormFile file = Request.Form.Files.FirstOrDefault();
-                user.ProfilePicture  = file.OptimizeImageSize(400,400);
+                user.ProfilePicture  = file.OptimizeImageSize(720,720);
                 await _userManager.UpdateAsync(user);
             }
             await _signInManager.RefreshSignInAsync(user);

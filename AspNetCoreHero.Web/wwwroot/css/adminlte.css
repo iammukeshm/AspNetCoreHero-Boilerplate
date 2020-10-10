@@ -31219,15 +31219,15 @@ a.text-muted:hover {
 /*# sourceMappingURL=adminlte.css.map */
 
 /* Style the Image Used to Trigger the Modal */
-#profilePicture {
+#viewableImage {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-    #profilePicture:hover {
-        opacity: 0.7;
-    }
+#viewableImage:hover {
+    opacity: 0.7;
+}
 
 /* The Modal (background) */
 .modal {
@@ -31283,6 +31283,15 @@ a.text-muted:hover {
 
 /* The Close Button */
 .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.viewableImageClose {
     position: absolute;
     top: 15px;
     right: 35px;

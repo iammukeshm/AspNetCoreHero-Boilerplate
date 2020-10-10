@@ -61,18 +61,18 @@
                     <input accept=".png,.jpg,.jpeg,.gif,.tif"
                            asp-for="@Model.Image"
                            type="file" class="custom-file-input"
-                           onchange="document.getElementById('achimage').src = window.URL.createObjectURL(this.files[0])"
+                           onchange="document.getElementById('viewableImage').src = window.URL.createObjectURL(this.files[0])"
                            id="customFile">
                     <label class="custom-file-label" for="customFile">Choose Image</label>
                 </div>
                 @if (Model.Image != null && Model.Image.Length > 0)
                 {
-                    <img id="achimage" asp-for="@Model.Image" style="width: 100%;object-fit: cover;padding-top: 10px;" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" alt>
+                    <img id="viewableImage" class="viewableImage" asp-for="@Model.Image" style="width: 100%;object-fit: cover;padding-top: 10px;" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))" alt>
                     @*<button onclick="document.getElementById('achimage').src = null;" type="button" style="margin-top:10px" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Remove Image</button>*@
                 }
                 else
                 {
-                    <img id="achimage" style="width: 100%;object-fit: cover;padding-top:10px;" src="" alt>
+                    <img id="viewableImage" class="viewableImage" style="width: 100%;object-fit: cover;padding-top:10px;" src="" alt>
                 }
 
             </div>
@@ -86,7 +86,7 @@
     </div>
 
 </form>
-<script src="~/js/Areas/Products/createOrEdit.js"></script>
+<script src="~/js/imageModal.js"></script>
 <script type="text/javascript" language=javascript>
     $.validator.unobtrusive.parse(document);
 </script>

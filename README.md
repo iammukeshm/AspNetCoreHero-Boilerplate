@@ -26,6 +26,12 @@ v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm
 * Removed Hangfire Caching
 * Complete Account Management on Public API (Register / Forgot Password / Confirm Email)
 * UI Improvements for Register / Locked / Error Pages
+* Active Page Razor Helper to Detect Current Active UI Page
+* Added Product Category with Complete CRUD / CQRS
+* Image Modal Improvement (Open Product Images & Profile Picture)
+* Integrated SelectJs
+* Added a sample Self Hosted API at Web Project - /api/productcategory/search?term=b
+
 
 
 ## Problem It will Solve

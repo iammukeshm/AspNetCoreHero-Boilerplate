@@ -71,11 +71,11 @@
                                 <div class="col">
                                     @if (Model.ProfilePicture != null)
                                     {
-                                    <img id="profilePicture" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+                                        <img id="viewableImage" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
                                     }
                                     else
                                     {
-                                        <img id="profilePicture" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="~/images/default-user.png">
+                                        <img id="viewableImage" alt="Profile Picture of @Model.Username" style="width:inherit; height:350px; object-fit:cover" src="~/images/default-user.png">
                                     }
                                 </div>
                             </div>
@@ -106,9 +106,8 @@
         </div>
     </div>
 </div>
-<partial name="AdminLTE/_ImageModal" />
 
 @section Scripts
 {
-    <script src="~/js/Areas/Profile/index.js"></script>
+    <script src="~/js/imageModal.js"></script>
 }
