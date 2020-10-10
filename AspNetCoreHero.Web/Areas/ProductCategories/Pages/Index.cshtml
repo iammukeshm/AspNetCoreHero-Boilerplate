@@ -1,0 +1,42 @@
+﻿@page
+@model AspNetCoreHero.Web.Areas.ProductCategories.Pages.IndexModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+}
+@{
+    ViewData["Title"] = localizer["Product Categories"];
+    ViewData["Caption"] = localizer["Manage Product Categories here"];
+}
+<div class="card">
+    <div class="col-sm-12" style="padding:20px">
+        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create || a.Value == ProductPermissions.Create))
+        {
+            <a onclick="jQueryModalGet('/productcategories?handler=CreateOrEdit','Create Product')" class="btn bg-success">
+                <i class="fa fa-plus-square"></i>
+                Create
+            </a>
+        }
+        <a id="reload" class="btn btn-primary text-white">
+            <i class="fa fas fa-bolt"></i>
+            Reload
+        </a>
+    </div>
+    <div id="viewAll" class="card-body table-responsive"></div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#viewAll').load('/productcategories?handler=ViewAll');
+
+        });
+        $(function () {
+            $('#reload').on('click', function () {
+                $('#viewAll').load('/productcategories?handler=ViewAll');
+            });
+        });
+    </script>
+
+}
+

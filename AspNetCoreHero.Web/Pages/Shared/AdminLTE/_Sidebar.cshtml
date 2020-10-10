@@ -40,7 +40,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a asp-area="Admin" asp-page="/roles"  class="nav-link">
+                                <a asp-area="Admin" asp-page="/roles" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>@localizer["Roles"]</p>
                                 </a>
@@ -54,6 +54,14 @@
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
                             @localizer["Products"]
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="ProductCategories" asp-page="/Index" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            @localizer["Product Categories"]
                         </p>
                     </a>
                 </li>
