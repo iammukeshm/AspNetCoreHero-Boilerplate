@@ -1,6 +1,9 @@
 ﻿@page
 @model AspNetCoreHero.Web.Areas.Admin.Pages.RolesModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @{
+    ViewData["Title"] = localizer["Roles"];
+    ViewData["Caption"] = localizer["Manage Roles here"];
 }
 <div class="card">
     <div class="col-sm-12" style="padding:20px">

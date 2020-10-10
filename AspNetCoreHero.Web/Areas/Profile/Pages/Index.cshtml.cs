@@ -42,12 +42,12 @@ namespace AspNetCoreHero.Web.Areas.Profile.Pages
                 IsActive = user.IsActive;
                 IsSuperAdmin = roles.Contains("SuperAdmin");
                 Roles = roles.ToList();
-                //if(ProfilePicture.Length>0)
-                //{
-                //    var image = Image.Load(ProfilePicture);
-                //    ImageHeight = image.Height;
-                //    ImageWidth = image.Width;
-                //}
+                if (ProfilePicture.Length > 0)
+                {
+                    var image = Image.Load(ProfilePicture);
+                    ImageHeight = image.Height;
+                    ImageWidth = image.Width;
+                }
             }
            
         }

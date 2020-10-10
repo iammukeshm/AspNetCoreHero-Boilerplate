@@ -52,7 +52,6 @@
                                             <h1 class="h4 text-gray-900 mb-4">@localizer["Login"]</h1>
                                         </div>
                                         <form class="user" id="account" method="post">
-                                            <small><div asp-validation-summary="All" class="text-danger"></div></small>
                                             <div class="form-group">
                                                 <input asp-for="Input.Email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                                 <small><span asp-validation-for="Input.Email" class="text-danger"></span></small>
@@ -117,7 +116,10 @@
 
         </div>
     </div>
+
     <partial name="AdminLTE/_Scripts" />
+    @await Component.InvokeAsync("NToastNotify")
+
 </body>
 
 </html>

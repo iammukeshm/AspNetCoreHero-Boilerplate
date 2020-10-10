@@ -13,7 +13,7 @@
             <th>
                 @localizer["Tax"]
             </th>
-            @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductPermissions.Update || a.Value == MasterPermissions.Delete || a.Value == ProductPermissions.Delete))
+            @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductCategoryPermissions.Update || a.Value == MasterPermissions.Delete || a.Value == ProductCategoryPermissions.Delete))
             {
                 <th style="width:10%">
                     @localizer["Actions"]
@@ -36,7 +36,7 @@
                 <td>
                     @category.Tax
                 </td>
-                @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductPermissions.Update || a.Value == MasterPermissions.Delete || a.Value == ProductPermissions.Delete))
+                @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductCategoryPermissions.Update || a.Value == MasterPermissions.Delete || a.Value == ProductCategoryPermissions.Delete))
                 {
 
                     <td text-right">
@@ -45,11 +45,11 @@
                                 Action
                             </button>
                             <div class="dropdown-menu shadow animated--grow-in">
-                                @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductPermissions.Update))
+                                @if (User.Claims.Any(a => a.Value == MasterPermissions.Update || a.Value == ProductCategoryPermissions.Update))
                                 {
-                                    <a onclick="jQueryModalGet('/productcategories?handler=CreateOrEdit&id=@category.Id','Edit Product')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>  Edit</a>
+                                    <a onclick="jQueryModalGet('/productcategories?handler=CreateOrEdit&id=@category.Id','Edit Product Category')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>  Edit</a>
                                 }
-                                @if (User.Claims.Any(a => a.Value == MasterPermissions.Delete || a.Value == ProductPermissions.Delete))
+                                @if (User.Claims.Any(a => a.Value == MasterPermissions.Delete || a.Value == ProductCategoryPermissions.Delete))
                                 {
 
                                     <form id="form_delete_@category.Id" asp-page="Index" method="post" asp-page-handler="Delete" asp-route-id="@category.Id" onsubmit="return jQueryModalDelete(this)">

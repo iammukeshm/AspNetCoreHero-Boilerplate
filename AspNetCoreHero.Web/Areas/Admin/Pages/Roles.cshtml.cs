@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore;
 using AspNetCoreHero.Application.Constants.Permissions;
+using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using AspNetCoreHero.Web.Areas.Admin.ViewModels;
 using AspNetCoreHero.Web.Helpers;
 using AspNetCoreHero.Web.Models.Shared;
@@ -19,10 +21,12 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
     [Authorize(Roles = "SuperAdmin")]
     public class RolesModel : HeroPageModel<RolesModel>
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public RolesModel(RoleManager<IdentityRole> roleManager)
+        public RolesModel(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
         public string Name { get; set; }
         public string Id { get; set; }
@@ -62,6 +66,7 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
                 if (string.IsNullOrEmpty(id))
                 {
                     await _roleManager.CreateAsync(new IdentityRole(role.Name));
+                    Notify.AddSuccessToastMessage("Role Created");
                 }
                 else
                 {
@@ -69,7 +74,9 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
                     existingRole.Name = role.Name;
                     existingRole.NormalizedName = role.Name.ToUpper();
                     await _roleManager.UpdateAsync(existingRole);
+                    Notify.AddSuccessToastMessage("Role Updated");
                 }
+
                 var roles = await _roleManager.Roles.ToListAsync();
                 Roles = Mapper.Map<IEnumerable<RolesViewModel>>(roles);
                 var html = await Renderer.RenderPartialToStringAsync("_ViewAllRoles", Roles);
@@ -88,7 +95,25 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
             var existingRole = await _roleManager.FindByIdAsync(id);
             if(existingRole.Name!="SuperAdmin" && existingRole.Name != "Basic")
             {
-                await _roleManager.DeleteAsync(existingRole);
+                //TODO Check if Any Users already uses this Role
+                bool roleIsNotUsed = true;
+                var allUsers = await _userManager.Users.ToListAsync();
+                foreach(var user in allUsers)
+                {
+                    if(await _userManager.IsInRoleAsync(user,existingRole.Name))
+                    {
+                        roleIsNotUsed = false;
+                    }
+                }   
+                if(roleIsNotUsed)
+                {
+                    await _roleManager.DeleteAsync(existingRole);
+                }
+                else
+                {
+                    Notify.AddErrorToastMessage("Role is being Used by another User. Cannot Delete");
+                }
+               
             }
             var roles = await _roleManager.Roles.ToListAsync();
             Roles = Mapper.Map<IEnumerable<RolesViewModel>>(roles);

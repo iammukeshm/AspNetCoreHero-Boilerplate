@@ -60,14 +60,14 @@ namespace AspNetCoreHero.Web.Areas.ProductCategories.Pages
 
                     if (id == 0)
                     {
-                        User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductPermissions.Create });
+                        User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductCategoryPermissions.Create });
                         var createProductCommand = Mapper.Map<CreateProductCategoryCommand>(product);
                         var result = await Mediator.Send(createProductCommand);
                         if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
                     }
                     else
                     {
-                        User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductPermissions.Update });
+                        User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductCategoryPermissions.Update });
                         var updateProductCommand = Mapper.Map<UpdateProductCategoryCommand>(product);
 
                         try
@@ -107,7 +107,7 @@ namespace AspNetCoreHero.Web.Areas.ProductCategories.Pages
         }
         public async Task<JsonResult> OnPostDeleteAsync(int id)
         {
-            User.HasRequiredClaims(new List<string> { MasterPermissions.Delete, ProductPermissions.Delete });
+            User.HasRequiredClaims(new List<string> { MasterPermissions.Delete, ProductCategoryPermissions.Delete });
             var thisProduct = await Mediator.Send(new DeleteProductCategoryByIdCommand { Id = id });
             Notify.AddInfoToastMessage($"Product Category with Id {id} Deleted.");
             var response = await Mediator.Send(new GetAllProductCategoriesQuery());

@@ -9,9 +9,9 @@
 }
 <div class="card">
     <div class="col-sm-12" style="padding:20px">
-        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create || a.Value == ProductPermissions.Create))
+        @if (User.Claims.Any(a => a.Value == MasterPermissions.Create || a.Value == ProductCategoryPermissions.Create))
         {
-            <a onclick="jQueryModalGet('/productcategories?handler=CreateOrEdit','Create Product')" class="btn bg-success">
+            <a onclick="jQueryModalGet('/productcategories?handler=CreateOrEdit','Create Product Category')" class="btn bg-success">
                 <i class="fa fa-plus-square"></i>
                 Create
             </a>

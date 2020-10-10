@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using AspNetCoreHero.Infrastructure.Persistence.Identity;
 using System.Net.Mail;
+using AspNetCoreHero.Web.Models.Shared;
 
 namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class LoginModel : PageModel
+    public class LoginModel : HeroPageModel<LoginModel>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -99,6 +100,7 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                     }
                     else if (!user.EmailConfirmed)
                     {
+                        Notify.AddErrorToastMessage("Email Not Confirmed.");
                         ModelState.AddModelError(string.Empty, "Email Not Confirmed.");
                         return Page();
                     }
@@ -108,6 +110,7 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                         if (result.Succeeded)
                         {
                             _logger.LogInformation("User logged in.");
+                            Notify.AddSuccessToastMessage($"Logged in as {userName}.");
                             return LocalRedirect(returnUrl);
                         }
                         if (result.RequiresTwoFactor)
@@ -116,11 +119,13 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                         }
                         if (result.IsLockedOut)
                         {
+                            Notify.AddWarningToastMessage("User account locked out.");
                             _logger.LogWarning("User account locked out.");
                             return RedirectToPage("./Lockout");
                         }
                         else
                         {
+                            Notify.AddErrorToastMessage("Invalid login attempt.");
                             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                             return Page();
                         }
@@ -128,6 +133,7 @@ namespace AspNetCoreHero.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
+                    Notify.AddErrorToastMessage("Email / Username Not Found.");
                     ModelState.AddModelError(string.Empty, "Email / Username Not Found.");
                 }
 

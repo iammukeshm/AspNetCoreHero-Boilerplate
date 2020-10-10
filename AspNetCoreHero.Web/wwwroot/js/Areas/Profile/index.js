@@ -8,6 +8,8 @@ var captionText = document.getElementById("caption");
 img.onclick = function () {
     modal.style.display = "block";
     modalImg.src = this.src;
+    modalImg.style.width = 'auto';
+    modalImg.style.marginTop = '100px';
     captionText.innerHTML = this.alt;
     $('#ImageModal').show();
 }

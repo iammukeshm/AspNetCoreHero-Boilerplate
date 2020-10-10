@@ -6061,6 +6061,18 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   border-radius: 0.3rem;
   outline: 0;
 }
+.modal-content-image {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    pointer-events: auto;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border-radius: 0.3rem;
+    outline: 0;
+}
 
 .modal-backdrop {
   position: fixed;

@@ -40,6 +40,7 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
             var allPermissions = new List<RoleClaimsViewModel>();
             allPermissions.GetPermissions(typeof(MasterPermissions), roleId);
             allPermissions.GetPermissions(typeof(ProductPermissions), roleId);
+            allPermissions.GetPermissions(typeof(ProductCategoryPermissions), roleId);
             var role = await _roleManager.FindByIdAsync(roleId);
             RoleId = roleId;
             var claims = await _roleManager.GetClaimsAsync(role);
@@ -74,8 +75,8 @@ namespace AspNetCoreHero.Web.Areas.Admin.Pages
             }
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.RefreshSignInAsync(user);
-            return Page();
-
+            Notify.AddSuccessToastMessage($"Updated Claims / Permissions for Role '{role.Name}'");
+            return RedirectToPage("/roles", new { area = "Admin" });
         }
        
 
