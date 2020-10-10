@@ -16,11 +16,12 @@ v1.0 - Beta Release - [Download Beta-V1.0 Release](https://github.com/iammukeshm
 
 ### Changelog
 #### v1.1
-* add fluent validation
+* added fluent validation
 * added product images
 * UI improvement
 * activity log integration
 * added toast notification
+* Superadmins can now create users directly from Dashboard! Client / Server side Validations enabled
 
 
 ## Problem It will Solve
