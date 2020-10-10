@@ -18,6 +18,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Create
         public byte[] Image { get; set; }
         public string Description { get; set; }
         public decimal Rate { get; set; }
+        public int ProductCategoryId { get; set; }
     }
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response<int>>
     {

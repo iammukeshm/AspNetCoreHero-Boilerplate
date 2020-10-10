@@ -19,4 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AspNetCoreHero.Domain\AspNetCoreHero.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\ProductCategories\Queries\GetById\" />
+  </ItemGroup>
 </Project>

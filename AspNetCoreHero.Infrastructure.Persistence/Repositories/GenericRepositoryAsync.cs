@@ -59,7 +59,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
             return Task.CompletedTask;
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync(bool isCached = false)
         {
             if (!_cacheService(cacheTech).TryGet(cacheKey, out IReadOnlyList<T> cachedList))
             {

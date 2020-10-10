@@ -22,5 +22,10 @@
       "library": "datatables@1.10.21",
       "destination": "wwwroot/lib/datatables/"
     }
-  ]
+  ,
+{
+  "library": "select2@4.0.13",
+  "destination": "wwwroot/lib/select2/"
+}
+]
 }

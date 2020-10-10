@@ -1,4 +1,5 @@
 using AspNetCoreHero.Application.Constants.Permissions;
+using AspNetCoreHero.Application.Features.ProductCategories.Queries.GetAll;
 using AspNetCoreHero.Application.Features.Products.Commands.Create;
 using AspNetCoreHero.Application.Features.Products.Commands.Delete;
 using AspNetCoreHero.Application.Features.Products.Commands.Update;
@@ -10,6 +11,7 @@ using AspNetCoreHero.Web.Helpers;
 using AspNetCoreHero.Web.Models.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
@@ -25,6 +27,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
 {
     public class IndexModel : HeroPageModel<IndexModel>
     {
+
         public IEnumerable<ProductViewModel> Products { get; set; }
         public void OnGet()
         {
@@ -46,11 +49,21 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         public async Task<JsonResult> OnGetCreateOrEditAsync(int id = 0)
         {
             if (id == 0)
-                return new JsonResult(new { isValid = true, html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_CreateOrEdit", new ProductViewModel()) });
+            {
+                var categories = await Mediator.Send(new GetAllProductCategoriesQuery());
+                var viewModel = new ProductViewModel();
+                var categoriesViewModel = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(categories.Data);
+                viewModel.ProductCategories = new SelectList(categoriesViewModel, nameof(ProductCategoryViewModel.Id), nameof(ProductCategoryViewModel.Name), null,null);
+                return new JsonResult(new { isValid = true, html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_CreateOrEdit", viewModel) });
+            }
             else
             {
+
+                var categories = await Mediator.Send(new GetAllProductCategoriesQuery());
                 var response = await Mediator.Send(new GetProductByIdQuery { Id = id });
                 var viewModel = Mapper.Map<ProductViewModel>(response.Data);
+                var categoriesViewModel = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(categories.Data);
+                viewModel.ProductCategories = new SelectList(categoriesViewModel, nameof(ProductCategoryViewModel.Id), nameof(ProductCategoryViewModel.Name), null, null);
                 return new JsonResult(new { isValid = true, html = await Renderer.RenderPartialToStringAsync<ProductViewModel>("_CreateOrEdit", viewModel) });
             }
         }
@@ -58,49 +71,59 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         {
             if (ModelState.IsValid)
             {
-                if (Request.Form.Files.Count > 0)
+                try
                 {
-                    IFormFile file = Request.Form.Files.FirstOrDefault();
-                    product.Image = file.OptimizeImageSize(400,400);
-                }
+                    if (Request.Form.Files.Count > 0)
+                    {
+                        IFormFile file = Request.Form.Files.FirstOrDefault();
+                        product.Image = file.OptimizeImageSize(400, 400);
+                    }
 
-                if (id == 0)
-                {
-                    User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductPermissions.Create });
-                    var createProductCommand = Mapper.Map<CreateProductCommand>(product);
-                    var result = await Mediator.Send(createProductCommand);
-                    if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
-                }
-                else
-                {
-                    User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductPermissions.Update });
-                    if(product.Image==null)
+                    if (id == 0)
                     {
-                        var oldProduct = await Mediator.Send(new GetProductByIdQuery { Id = id });
-                        product.Image = oldProduct.Data.Image;
+                        User.HasRequiredClaims(new List<string> { MasterPermissions.Create, ProductPermissions.Create });
+                        var createProductCommand = Mapper.Map<CreateProductCommand>(product);
+                        var result = await Mediator.Send(createProductCommand);
+                        if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Created.");
                     }
-                    var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
+                    else
+                    {
+                        User.HasRequiredClaims(new List<string> { MasterPermissions.Update, ProductPermissions.Update });
+                        if (product.Image == null)
+                        {
+                            var oldProduct = await Mediator.Send(new GetProductByIdQuery { Id = id });
+                            product.Image = oldProduct.Data.Image;
+                        }
+                        var updateProductCommand = Mapper.Map<UpdateProductCommand>(product);
 
-                    try
-                    {
-                        var result = await Mediator.Send(updateProductCommand);
-                        if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");
+                        try
+                        {
+                            var result = await Mediator.Send(updateProductCommand);
+                            if (result.Succeeded) Notify.AddSuccessToastMessage($"Product Updated.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogInformation(ex.Message);
+                            throw;
+                        }
+
                     }
-                    catch (Exception ex)
+                    var response = await Mediator.Send(new GetAllProductsQuery());
+                    if (response.Succeeded)
                     {
-                        Logger.LogInformation(ex.Message);
-                        throw;
+                        var data = response.Data;
+                        Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
                     }
-                   
+                    var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);
+                    return new JsonResult(new { isValid = true, html = html });
                 }
-                var response = await Mediator.Send(new GetAllProductsQuery());
-                if (response.Succeeded)
+                catch (Exception ex)
                 {
-                    var data = response.Data;
-                    Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
+
+                    Notify.AddErrorToastMessage(ex.Message);
+                    throw;
                 }
-                var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);
-                return new JsonResult(new { isValid = true, html = html });
+                
             }
             else
             {

@@ -27,11 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="API\" />
-    <Folder Include="wwwroot\js\Areas\Products\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Resources\Pages\Shared\AdminLTE\_Sidebar.en.resx" />
   </ItemGroup>
 

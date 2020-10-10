@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,5 +17,8 @@ namespace AspNetCoreHero.Web.Areas.Products.ViewModels
         public byte[] Image { get; set; }
         public string Description { get; set; }
         public decimal Rate { get; set; }
+        [BindProperty]
+        public int ProductCategoryId { get; set; }
+        public SelectList ProductCategories { get; set; }
     }
 }

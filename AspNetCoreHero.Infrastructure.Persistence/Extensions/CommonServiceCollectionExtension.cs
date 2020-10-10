@@ -9,13 +9,6 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
 {
     public static class CommonServiceCollectionExtension
     {
-        public static void AddRepositories(this IServiceCollection services)
-        {
-            #region Repositories
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            #endregion
-        }
+        
     }
 }

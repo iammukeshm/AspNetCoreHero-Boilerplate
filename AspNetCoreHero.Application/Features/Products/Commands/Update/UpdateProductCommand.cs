@@ -17,6 +17,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Update
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public decimal Rate { get; set; }
+        public int ProductCategoryId { get; set; }
         public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Response<int>>
         {
             private readonly IProductRepositoryAsync _productRepository;
@@ -40,6 +41,7 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Update
                     product.Rate = command.Rate;
                     product.Description = command.Description;
                     product.Image = command.Image;
+                    product.ProductCategoryId = command.ProductCategoryId;
                     await _productRepository.UpdateAsync(product);
                     await _unitOfWork.Commit(cancellationToken);
                     return new Response<int>(product.Id);
