@@ -28,12 +28,12 @@
 {
     <script>
         $(document).ready(function () {
-            $('#viewAll').load('/products?handler=ProductsPartial');
+            $('#viewAll').load('/products?handler=ViewAll');
 
         });
         $(function () {
             $('#reload').on('click', function () {
-                $('#viewAll').load('/products?handler=ProductsPartial');
+                $('#viewAll').load('/products?handler=ViewAll');
             });
         });
     </script>

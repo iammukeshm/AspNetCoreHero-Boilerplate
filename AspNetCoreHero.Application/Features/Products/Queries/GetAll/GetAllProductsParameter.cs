@@ -7,6 +7,6 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
 {
     public class GetAllProductsParameter : RequestParameter
     {
-
+        public bool ReturnImages { get; set; } = false;
     }
 }

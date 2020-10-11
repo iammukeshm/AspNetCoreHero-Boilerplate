@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspNetCoreHero.Application.Features.ProductCategories.Queries.GetAll;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,5 +13,6 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public decimal Rate { get; set; }
+        public GetAllProductCategoryViewModel ProductCategory { get; set; }
     }
 }

@@ -13,11 +13,10 @@ namespace AspNetCoreHero.PublicAPI.Controllers.v1
     public class ProductController : BaseApiController
     {
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> Get([FromQuery] GetAllProductsParameter filter)
         {
 
-            return Ok(await Mediator.Send(new GetAllProductsQuery() { PageSize = filter.PageSize, PageNumber = filter.PageNumber }));
+            return Ok(await Mediator.Send(new GetAllProductsQuery() { PageSize = filter.PageSize, PageNumber = filter.PageNumber, ReturnImages = filter.ReturnImages }));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

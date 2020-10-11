@@ -17,6 +17,7 @@ namespace AspNetCoreHero.Web.Mappings
             CreateMap<CreateProductCommand, ProductViewModel>().ReverseMap();
             CreateMap<ProductViewModel, UpdateProductCommand>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<ProductCategory, ProductCategoryViewModel>();
         }
     }
 }

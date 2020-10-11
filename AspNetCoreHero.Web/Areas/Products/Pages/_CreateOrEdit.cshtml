@@ -50,7 +50,6 @@
                 <div class="col-md-9">
                     <div class="input-group">
                         <select name="ProductCategoryId" class="form-control select2bs4" id="ProductCategoryId" asp-for="ProductCategoryId" asp-items="@Model.ProductCategories">
-                            <option value="">Select A Country</option>
                         </select>
                     </div>
                     <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
@@ -87,6 +86,7 @@
 
 </form>
 <script src="~/js/imageModal.js"></script>
+<script src="~/js/Areas/Products/createOrEdit.js"></script>
 <script type="text/javascript" language=javascript>
     $.validator.unobtrusive.parse(document);
 </script>

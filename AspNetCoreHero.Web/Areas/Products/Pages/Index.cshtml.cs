@@ -32,7 +32,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         public void OnGet()
         {
         }
-        public async Task<PartialViewResult> OnGetProductsPartial()
+        public async Task<PartialViewResult> OnGetViewAll()
         {
             var response = await Mediator.Send(new GetAllProductsQuery());
             if (response.Succeeded)

@@ -19,6 +19,7 @@ namespace AspNetCoreHero.Web.Areas.Products.ViewModels
         public decimal Rate { get; set; }
         [BindProperty]
         public int ProductCategoryId { get; set; }
+        public ProductCategoryViewModel ProductCategory { get; set; }
         public SelectList ProductCategories { get; set; }
     }
 }
