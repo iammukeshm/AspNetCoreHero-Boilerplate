@@ -24,7 +24,7 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetById
             public async Task<Response<Product>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
             {
                 var product = await _productRepository.GetByIdAsync(query.Id);
-                if (product == null) throw new NotFoundException<Product>(query.Id);
+                if (product == null) throw new NotFoundException(nameof(Product),query.Id);
                 return new Response<Product>(product);
             }
         }

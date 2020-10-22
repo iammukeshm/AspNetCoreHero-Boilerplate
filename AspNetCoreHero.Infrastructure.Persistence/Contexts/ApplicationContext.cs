@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.Application.Interfaces.Shared;
 using AspNetCoreHero.Domain.Common;
 using AspNetCoreHero.Domain.Entities;
+using AspNetCoreHero.Infrastructure.Persistence.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Contexts
                                 Action = "Added",
                                 DateTime = _dateTime.Now,
                                 UserId = _authenticatedUser.UserId,
+                                IpAddress = IPHelper.GetIpAddress(),
                                 UserName = _authenticatedUser.Username,
                                 Entity = entityType,
                                 EntityId = ""
@@ -61,6 +63,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Contexts
                                 Action = "Modified",
                                 DateTime = _dateTime.Now,
                                 UserId = _authenticatedUser.UserId,
+                                IpAddress = IPHelper.GetIpAddress(),
                                 UserName = _authenticatedUser.Username,
                                 Entity = entityType,
                                 EntityId = entry.Entity.Id.ToString()

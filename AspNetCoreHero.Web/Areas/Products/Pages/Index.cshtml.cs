@@ -32,12 +32,14 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
         public void OnGet()
         {
         }
-        public async Task<PartialViewResult> OnGetViewAll()
+        public async Task<PartialViewResult> OnGetViewAll(int pageNumber, int pageSize)
         {
-            var response = await Mediator.Send(new GetAllProductsQuery());
+            pageNumber = pageNumber == 0 ? 1 : pageNumber;
+            pageSize = pageSize == 0 ? 10 : pageSize;
+            var response = await Mediator.Send(new GetAllProductsQuery() { PageSize = pageSize, PageNumber = pageNumber });
             if (response.Succeeded)
             {
-                var data = response.Data;
+                var data = response.Items;
                 Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
             }
             return new PartialViewResult
@@ -111,7 +113,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
                     var response = await Mediator.Send(new GetAllProductsQuery());
                     if (response.Succeeded)
                     {
-                        var data = response.Data;
+                        var data = response.Items;
                         Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
                     }
                     var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);
@@ -140,7 +142,7 @@ namespace AspNetCoreHero.Web.Areas.Products.Pages
             if (response.Succeeded)
             {
                 
-                var data = response.Data;
+                var data = response.Items;
                 Products = Mapper.Map<IEnumerable<ProductViewModel>>(data);
             }
             var html = await Renderer.RenderPartialToStringAsync("_ViewAll", Products);

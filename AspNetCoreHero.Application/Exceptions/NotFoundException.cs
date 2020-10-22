@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AspNetCoreHero.Application.Exceptions
 {
-    public class NotFoundException<T> : Exception
+    public class NotFoundException : Exception
     {
-        public NotFoundException(int entityId) : base($"{nameof(T)} with id {entityId} not found.")
+        public NotFoundException(string entity, object entityId) : base($"{entity} with id {entityId} not found.")
         {
         }
 

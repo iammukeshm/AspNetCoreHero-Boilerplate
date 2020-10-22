@@ -4,9 +4,6 @@
 <table class="table table-striped" id="productTable">
     <thead>
         <tr>
-            <th style="width:10%">
-                @localizer["Image"]
-            </th>
             <th>
                 @localizer["Name"]
             </th>
@@ -32,12 +29,6 @@
         @foreach (var product in Model)
         {
         <tr>
-            <td>
-                @if (product.Image != null && product.Image.Length > 0)
-                {
-                    <img style="width: 75px;height:75px;border-radius:50px;object-fit: cover;" src="data:image/*;base64,@(Convert.ToBase64String(product.Image))" alt>
-                }
-            </td>
             <td>
                 @product.Name
             </td>
@@ -81,6 +72,6 @@
 </table>
 <script>
     $(document).ready(function () {
-        $("#productTable").DataTable();
+        $("#productgTable").DataTable();
     });
 </script>

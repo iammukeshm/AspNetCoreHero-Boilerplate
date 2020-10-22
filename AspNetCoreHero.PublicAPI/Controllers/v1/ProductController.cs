@@ -16,7 +16,7 @@ namespace AspNetCoreHero.PublicAPI.Controllers.v1
         public async Task<IActionResult> Get([FromQuery] GetAllProductsParameter filter)
         {
 
-            return Ok(await Mediator.Send(new GetAllProductsQuery() { PageSize = filter.PageSize, PageNumber = filter.PageNumber, ReturnImages = filter.ReturnImages }));
+            return Ok(await Mediator.Send(new GetAllProductsQuery() { PageSize = filter.PageSize, PageNumber = filter.PageNumber}));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

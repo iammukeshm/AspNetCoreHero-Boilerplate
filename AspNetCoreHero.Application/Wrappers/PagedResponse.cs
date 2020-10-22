@@ -5,18 +5,51 @@ using System.Text;
 namespace AspNetCoreHero.Application.Wrappers
 {
     public class PagedResponse<T> : Response<T>
+        where T : class
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
-        public PagedResponse(T data, int pageNumber, int pageSize)
+        public PagedResponse()
         {
-            this.PageNumber = pageNumber;
-            this.PageSize = pageSize;
-            this.Data = data;
-            this.Message = null;
-            this.Succeeded = true;
-            this.Errors = null;
         }
+
+        public PagedResponse(List<T> items, long count, int pageIndex, int pageSize)
+        {
+            PageIndex = pageIndex;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalItems = count;
+            PageItemsStartsAt = count > 0 ? ((pageIndex - 1) * pageSize) + 1 : 0;
+            Succeeded = true;
+            PageItemsEndsAt = 0;
+            if (count > 0)
+            {
+                if (pageIndex * pageSize > count)
+                {
+                    PageItemsEndsAt = count;
+                }
+                else
+                {
+                    PageItemsEndsAt = pageIndex * pageSize;
+                }
+            }
+
+            Items.AddRange(items);
+        }
+
+        public int PageIndex { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public long TotalItems { get; set; }
+
+        public int MaxPageLink { get; } = 5;
+
+        public long PageItemsStartsAt { get; set; }
+
+        public long PageItemsEndsAt { get; set; }
+
+        public bool HasPreviousPage => PageIndex > 1;
+
+        public bool HasNextPage => PageIndex < TotalPages;
+
+        public List<T> Items { get; set; } = new List<T>();
     }
 }

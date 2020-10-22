@@ -17,6 +17,8 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
         private readonly ApplicationContext _dbContext;
         private readonly Func<CacheTech, ICacheService> _cacheService;
 
+        public IQueryable<T> Entities => _dbContext.Set<T>();
+
         public GenericRepositoryAsync(ApplicationContext dbContext, Func<CacheTech, ICacheService> cacheService)
         {
             _dbContext = dbContext;

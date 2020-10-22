@@ -35,9 +35,18 @@ namespace AspNetCoreHero.Application.Features.Products.Commands.Create
 
         public async Task<Response<int>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = _mapper.Map<Product>(request);
-            await _productRepository.AddAsync(product);
-            return new Response<int>(await _unitOfWork.Commit(cancellationToken));
+            try
+            {
+                var product = _mapper.Map<Product>(request);
+                await _productRepository.AddAsync(product);
+                return new Response<int>(await _unitOfWork.Commit(cancellationToken));
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

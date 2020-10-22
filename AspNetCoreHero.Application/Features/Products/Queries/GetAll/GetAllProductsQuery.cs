@@ -8,17 +8,17 @@ using AspNetCoreHero.Application.Wrappers;
 using AspNetCoreHero.Domain.Entities;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
 {
 
-    public class GetAllProductsQuery : IRequest<Response<IEnumerable<GetAllProductsViewModel>>>
+    public class GetAllProductsQuery : IRequest<PagedResponse<GetAllProductsViewModel>>
     {
-        public bool ReturnImages { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
     }
-    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, Response<IEnumerable<GetAllProductsViewModel>>>
+    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, PagedResponse<GetAllProductsViewModel>>
     {
         private readonly IProductRepositoryAsync _productRepository;
         private readonly IMapper _mapper;
@@ -28,22 +28,14 @@ namespace AspNetCoreHero.Application.Features.Products.Queries.GetAll
             _mapper = mapper;
         }
 
-        public async Task<Response<IEnumerable<GetAllProductsViewModel>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResponse<GetAllProductsViewModel>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var validFilter = _mapper.Map<GetAllProductsParameter>(request);
-            var product = new List<Product>();
-            if(request.ReturnImages)
-            {
-                var productWithImages = await _productRepository.GetAllWithCategoriesAsync();
-                product = productWithImages.ToList();
-            }
-            else
-            {
-                var productWithoutImages = await _productRepository.GetAllWithCategoriesWithoutImagesAsync();
-                product = productWithoutImages.ToList();
-            }
-            var productViewModel = _mapper.Map<IEnumerable<GetAllProductsViewModel>>(product);
-            return new Response<IEnumerable<GetAllProductsViewModel>>(productViewModel);
+            request.PageNumber = request.PageNumber == 0 ? 1 : request.PageNumber;
+            request.PageSize = request.PageSize == 0 ? 10 : request.PageSize;
+            var products = await _productRepository.GetAllWithCategoriesAsync(request.PageNumber,request.PageSize);
+            var count = await _productRepository.Entities.LongCountAsync();
+            var productViewModel = _mapper.Map<IEnumerable<GetAllProductsViewModel>>(products.Items);
+            return new PagedResponse<GetAllProductsViewModel>(productViewModel.ToList(), count, request.PageNumber, request.PageSize);
         }
     }
 }

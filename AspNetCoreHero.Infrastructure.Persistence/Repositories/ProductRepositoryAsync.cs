@@ -1,12 +1,16 @@
 ﻿using AspNetCoreHero.Application.Enums.Services;
 using AspNetCoreHero.Application.Interfaces.Repositories;
 using AspNetCoreHero.Application.Interfaces.Shared;
+using AspNetCoreHero.Application.Wrappers;
+using AspNetCoreHero.Domain.Dtos;
 using AspNetCoreHero.Domain.Entities;
 using AspNetCoreHero.Infrastructure.Persistence.Contexts;
+using AspNetCoreHero.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
@@ -24,14 +28,33 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Repositories
             _cacheService = cacheService;
         }
 
-        public async Task<IReadOnlyList<Product>> GetAllWithCategoriesAsync(bool isCached = false)
+        public async Task<PagedResponse<Product>> GetAllWithCategoriesAsync(int pageNumber, int pageSize, bool isCached = false)
         {
-            if (!_cacheService(cacheTech).TryGet(cacheKey, out IReadOnlyList<Product> cachedList))
+            try
             {
-                cachedList = await _products.Include(a => a.ProductCategory).ToListAsync();
-                _cacheService(cacheTech).Set(cacheKey, cachedList);
+                var paginatedList = await _products
+                    .Include(a => a.ProductCategory)
+                    .Select(o => new Product
+                    {
+                        Barcode = o.Barcode,
+                        Name = o.Name,
+                        ProductCategory = o.ProductCategory,
+                        ProductCategoryId = o.ProductCategoryId,
+                        Rate = o.Rate,
+                        Description = o.Description,
+                        Id = o.Id
+                    })
+                    .ToPaginatedListAsync<Product>(pageNumber, pageSize);
+                return paginatedList;
             }
-            return cachedList;
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+
         }
 
         public async Task<IReadOnlyList<Product>> GetAllWithCategoriesWithoutImagesAsync(bool isCached = false)
