@@ -11,6 +11,8 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
     {
         public static void BuildIdentityTable(this ModelBuilder builder)
         {
+            builder.HasDefaultSchema("Identity");
+
             builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");
@@ -19,7 +21,7 @@ namespace AspNetCoreHero.Infrastructure.Persistence.Extensions
             {
                 entity.ToTable(name: "Role");
             });
-            builder.Entity<IdentityRole<string>>(entity =>
+            builder.Entity<IdentityUserRole<string>>(entity =>
             {
                 entity.ToTable("UserRoles");
             });
